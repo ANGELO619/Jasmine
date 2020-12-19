@@ -5,3 +5,5 @@ class ProductRepository extends AbstractRepository {
         super(db)
     }
 }
+
+module.exports = ProductRepository

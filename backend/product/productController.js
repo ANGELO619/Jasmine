@@ -1,74 +1,22 @@
-var productModel = require('./productModel.js');
+const Product = require("./productModel");
+const ProductRepository = require("./productRepository");
 
-/**
- * productController.js
- *
- * @description :: Server-side logic for managing products.
- */
+const productRepository = new ProductRepository()
+
 module.exports = {
-
-    /**
-     * productController.list()
-     */
-    list: function (req, res) {
-        productModel.find(function (err, products) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting product.',
-                    error: err
-                });
-            }
-            return res.json(products);
+    create: async function (req, res) {
+        const toCreate = new Product({
+            ...req.body
         });
+
+        const product = await productRepository.save(toCreate);
+
+        return res.status(201).json(product);
     },
 
-    /**
-     * productController.show()
-     */
-    show: function (req, res) {
-        var id = req.params.id;
-        productModel.findOne({_id: id}, function (err, product) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when getting product.',
-                    error: err
-                });
-            }
-            if (!product) {
-                return res.status(404).json({
-                    message: 'No such product'
-                });
-            }
-            return res.json(product);
-        });
-    },
-
-    /**
-     * productController.create()
-     */
-    create: function (req, res) {
-        var product = new productModel({
-			id : req.body.id
-
-        });
-
-        product.save(function (err, product) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Error when creating product',
-                    error: err
-                });
-            }
-            return res.status(201).json(product);
-        });
-    },
-
-    /**
-     * productController.update()
-     */
     update: function (req, res) {
         var id = req.params.id;
-        productModel.findOne({_id: id}, function (err, product) {
+        productRepository.findOne({ _id: id }, function (err, product) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when getting product',
@@ -82,7 +30,7 @@ module.exports = {
             }
 
             product.id = req.body.id ? req.body.id : product.id;
-			
+
             product.save(function (err, product) {
                 if (err) {
                     return res.status(500).json({
@@ -96,12 +44,9 @@ module.exports = {
         });
     },
 
-    /**
-     * productController.remove()
-     */
     remove: function (req, res) {
         var id = req.params.id;
-        productModel.findByIdAndRemove(id, function (err, product) {
+        productRepository.findByIdAndRemove(id, function (err, product) {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when deleting the product.',
