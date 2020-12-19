@@ -26,7 +26,7 @@ class ProductController {
 
     async remove(req, res) {
         try {
-            await this.productRepository.remive(req.params.productId)
+            await this.productRepository.remove(req.params.productId)
         } catch (e) {
             console.error(e)
             req.status(500).end()
