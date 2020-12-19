@@ -8,3 +8,5 @@ class AbstractRepository {
     async save() { }
     async findByIdAndRemove()
 }
+
+module.exports = AbstractRepository
