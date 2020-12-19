@@ -4,17 +4,21 @@ class Product extends AbstractModel {
 	id
 	name
 	description
+	image
 	price
-	stock
 	options
+	countInStock
+	brand
 
 	constructor({
 		id,
 		name,
 		description,
 		price,
-		stock,
 		options,
+		countInStock,
+		brand,
+		image
 	}) {
 		this.id = id
 		this.name = name
@@ -22,6 +26,9 @@ class Product extends AbstractModel {
 		this.price = price
 		this.stock = stock
 		this.options = options
+		this.countInStock = countInStock
+		this.brand = brand
+		this.image = image
 	}
 }
 

@@ -1,9 +1,9 @@
 const AbstractRepository = require("../common/abstractRepository");
 
-class ProductRepository extends AbstractRepository {
+class OrderRepository extends AbstractRepository {
     constructor(collection) {
         super(collection)
     }
 }
 
-module.exports = ProductRepository
+module.exports = OrderRepository
