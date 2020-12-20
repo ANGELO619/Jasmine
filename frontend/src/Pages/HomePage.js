@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { listProducts } from "../actions/productActions";
+import "../css/Home.css";
 
 function HomePage(props) {
   const dispatch = useDispatch();
@@ -21,24 +22,15 @@ function HomePage(props) {
       ) : error ? (
         <MessageBox variant="danger">${error}</MessageBox>
       ) : (
-        <ul className="products">
-          {products.map((product) => (
-            <li key={product._id}>
-              <div className="product">
-                <Link to={`/product/${product._id}`}>
-                  <img className="product-image" src={product.image} alt="" />
-                </Link>
-                <div className="product-name">
-                  <Link to={`/product/${product._id}`}>
-                    <h2>{product.name}</h2>
-                  </Link>
-                </div>
-                <div className="product-brand">{product.brand}</div>
-                <div className="product-price">€ {product.price}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className="home-container">
+          <div className="banner">
+            <div className="banner-title">
+              <p> discover quick & easy</p>
+              <p>resipe</p>
+            </div>
+          </div>
+          <div className="catagory"></div>
+        </div>
       )}
     </div>
   );

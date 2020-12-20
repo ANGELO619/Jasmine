@@ -1,10 +1,14 @@
 import React from "react";
 import "./App.css";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
 import CartPage from "./Pages/CartPage";
+import { Nav, NavDropdown, Navbar } from "react-bootstrap";
 
 function App() {
   const openMenu = () => {
@@ -20,35 +24,30 @@ function App() {
   return (
     <Router>
       <div className="grid-container">
-        <header className="header">
-          <div className="brand">
-            <button onClick={openMenu}>&#9776;</button>
-            <Link to="/">Jasmine</Link>
-          </div>
-          <div className="header-links">
-            <Link to="/cart">
-              Cart
-              {cartItems.length > 0 && (
-                <span className="badge">{cartItems.length}</span>
-              )}
-            </Link>
-            <Link to="/signin">Sign In</Link>
-          </div>
-        </header>
-        <aside className="sidebar">
-          <h3>Categories </h3>
-          <button className="sidebar-close-btn" onClick={closeMenu}>
-            x
-          </button>
-          <ul>
-            <li>
-              <a href="index.html">Seasoning</a>
-            </li>
-            <li>
-              <a href="index.html">Spice</a>
-            </li>
-          </ul>
-        </aside>
+        <Navbar className="bg-main" expand="lg">
+          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#link">Link</Nav.Link>
+              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+
         <main className="main">
           <div className="content">
             <Route path="/cart/:id?" component={CartPage} />

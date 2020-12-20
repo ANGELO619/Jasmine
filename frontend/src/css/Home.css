@@ -1,0 +1,27 @@
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  /* place-items: center; */
+}
+
+.banner {
+  grid-column: 1/5;
+  background: url("http://asset-americas.unileversolutions.com/content/dam/unilever/knorr_world/united_states_of_america/website/knorr_betterforyou_banner_2000x3000px-1983763-jpg.jpg.ulenscale.1320x742.jpg")
+    center no-repeat;
+  background-size: cover;
+  height: 742px;
+  place-items: center;
+}
+
+.banner-title {
+  grid-column: 1/5;
+
+  color: #69dc9e;
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 50px;
+}
+
+.catagory {
+}
