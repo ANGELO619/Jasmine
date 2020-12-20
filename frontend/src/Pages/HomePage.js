@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { listProducts } from "../actions/productActions";
+import { Row, Col } from "react-bootstrap";
 import "../css/Home.css";
 
 function HomePage(props) {
@@ -29,7 +30,29 @@ function HomePage(props) {
               <p>resipe</p>
             </div>
           </div>
-          <div className="catagory"></div>
+          <div className="catagory">
+            <div className="catagory-items ">
+              <p>image</p>
+            </div>
+            <div className="catagory-items ">
+              <p>image</p>
+            </div>
+            <div className="catagory-items ">
+              <p>image</p>
+            </div>
+          </div>
+
+          <div className="product-wrapper">
+            <div className="items">
+              <p>asdasd</p>
+            </div>
+            <div className="items">
+              <p>asdasd</p>
+            </div>
+            <div className="items">
+              <p>asdasd</p>
+            </div>
+          </div>
         </div>
       )}
     </div>
