@@ -1,8 +1,10 @@
 import Axios from "axios";
+import MockData from "../MockData";
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-  const { data } = await Axios.get(`/api/products/${productId}`);
+  const data = MockData.products[productId - 1];
+  // const { data } = await Axios.get(`/api/products/${productId}`);
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
@@ -11,6 +13,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
       price: data.price,
       countInStock: data.countInStock,
       product: data.id,
+      productDetail: data.description,
       qty,
     },
   });
