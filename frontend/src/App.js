@@ -3,9 +3,10 @@ import "./App.css";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
+import ProfilePage from "./Pages/ProfilePage";
 import CartPage from "./Pages/CartPage";
 import { Nav, Navbar } from "react-bootstrap";
 import firebase from "firebase";
@@ -78,9 +79,10 @@ function App() {
     <Router>
       <div className="grid-container">
         <Navbar className="bg-main" expand="lg">
-          <Link to={"/"}>
+          <Link to="/">
             <Navbar.Brand href="#home">JASMINE</Navbar.Brand>
           </Link>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">

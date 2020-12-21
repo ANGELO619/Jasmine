@@ -1,30 +1,10 @@
 import React, { useState } from "react";
-import {
-  Col,
-  Card,
-  Row,
-  Button,
-  Container,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Col, Card, Row, Button, Container, Modal } from "react-bootstrap";
 import QRCode from "qrcode.react";
 
 export default function AddressForm(props) {
   const [show, setShow] = useState(false);
-  const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-  };
-
-  let test = [];
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
