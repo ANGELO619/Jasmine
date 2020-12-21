@@ -11,16 +11,6 @@ import CartPage from "./Pages/CartPage";
 import { Nav, NavDropdown, Navbar } from "react-bootstrap";
 
 function App() {
-  const openMenu = () => {
-    document.querySelector(".sidebar").classList.add("open");
-  };
-  const closeMenu = () => {
-    document.querySelector(".sidebar").classList.remove("open");
-  };
-
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
-
   return (
     <Router>
       <div className="grid-container">
@@ -55,7 +45,7 @@ function App() {
             <Route path="/" exact={true} component={HomePage} />
           </div>
         </main>
-        <footer className="footer">All right reserved.</footer>
+        {/* <footer className="footer">All right reserved.</footer> */}
       </div>
     </Router>
   );

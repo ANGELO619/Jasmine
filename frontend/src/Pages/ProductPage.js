@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { detailsProduct } from "../actions/productActions";
+import "../css/Product.css";
 
 function ProductPage(props) {
   const [qty, setQty] = useState(1);
@@ -63,7 +64,7 @@ function ProductPage(props) {
               <ul>
                 <li>
                   <b>Price:</b>
-                  <span className="price-color"> € {product.price}</span>
+                  <span> € {product.price}</span>
                 </li>
                 <li>
                   <b>Status: </b>
@@ -76,11 +77,9 @@ function ProductPage(props) {
                 {product.countInStock > 0 && (
                   <>
                     <li>
-                      <div className="row">
-                        <div>
+                      <div>
+                        <li>
                           <b>Qty: </b>
-                        </div>
-                        <div>
                           <select
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
@@ -93,14 +92,11 @@ function ProductPage(props) {
                               )
                             )}
                           </select>
-                        </div>
+                        </li>
                       </div>
                     </li>
                     <li>
-                      <button
-                        onClick={addToCartHandler}
-                        className="primary block"
-                      >
+                      <button onClick={addToCartHandler} className="button">
                         Add to Cart
                       </button>
                     </li>
