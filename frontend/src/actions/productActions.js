@@ -1,4 +1,5 @@
 import Axios from "axios";
+import MockData from "../MockData";
 import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
@@ -13,10 +14,9 @@ export const listProducts = () => async (dispatch) => {
     type: PRODUCT_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get("/api/products");
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
-      payload: data,
+      payload: MockData.products,
     });
   } catch (error) {
     dispatch({
@@ -29,15 +29,14 @@ export const listProducts = () => async (dispatch) => {
 export const detailsProduct = (productId) => async (dispatch) => {
   dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
   try {
-    const { data } = await Axios.get(`/api/products/${productId}`);
-    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
+      payload: MockData.products.find(({ id }) => id === productId),
+    });
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: "Kuy",
     });
   }
 };

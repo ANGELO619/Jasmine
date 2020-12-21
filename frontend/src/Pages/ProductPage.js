@@ -10,7 +10,11 @@ function ProductPage(props) {
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const { loading, error, product = {} } = productDetails;
+
+  console.log({
+    productId,
+  });
 
   useEffect(() => {
     dispatch(detailsProduct(productId));
