@@ -45,7 +45,7 @@ function HomePage(props) {
 
                 <Row fluid="true" className="justify-content-center my-5">
                   {products.map((product) => (
-                    <Col md={4} lg={4} xl={3} sm={6} xs={12} className="mx-3">
+                    <Col md={4} lg={4} xl={3} sm={6} xs={12} className="mx-3" key={product.id}>
                       <Card style={{ width: "18rem" }} className="hover-zoom">
                         <Card.Body>
                           <Card.Title>{product.name}</Card.Title>
