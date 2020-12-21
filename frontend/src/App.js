@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
 import CartPage from "./Pages/CartPage";
-import { Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Nav, NavDropdown, Navbar, Row, Container, Col } from "react-bootstrap";
 
 function App() {
   const openMenu = () => {
@@ -55,7 +55,13 @@ function App() {
             <Route path="/" exact={true} component={HomePage} />
           </div>
         </main>
-        <footer className="footer">All right reserved.</footer>
+        <footer className="footer">
+          <Container center fluid>
+            <Row>
+              <Col>1 of 1</Col>
+            </Row>
+          </Container>
+        </footer>
       </div>
     </Router>
   );
