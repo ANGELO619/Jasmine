@@ -9,11 +9,39 @@ import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
 import CartPage from "./Pages/CartPage";
 import { Nav, NavDropdown, Navbar, Row, Container, Col } from "react-bootstrap";
+import firebase from "firebase";
+import { auth } from "firebaseui";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDsR3cCWvvEUfCtTVaGMxb-of71S30OfYw",
+  authDomain: "jasmine-ecommerce.firebaseapp.com",
+  projectId: "jasmine-ecommerce",
+  storageBucket: "jasmine-ecommerce.appspot.com",
+  messagingSenderId: "496594169433",
+  appId: "1:496594169433:web:d6eef11e8d368144f8cb48",
+};
+
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+// var ui = new auth.AuthUI(firebase.auth());
+
+// ui.start("#firebaseui-auth-container", {
+//   signInOptions: [
+//     // List of OAuth providers supported.
+//     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+//     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+//     firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+//     firebase.auth.GithubAuthProvider.PROVIDER_ID,
+//   ],
+// });
 
 function App() {
   return (
     <Router>
       <div className="grid-container">
+        {/* <div id="firebaseui-auth-container" /> */}
         <Navbar className="bg-main" expand="lg">
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
