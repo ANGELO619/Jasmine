@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { listProducts } from "../actions/productActions";
-import { Row, Col, Container, Card, Button } from "react-bootstrap";
+import { Row, Col, Container, Card } from "react-bootstrap";
 import "../css/Home.css";
 
 function HomePage(props) {
@@ -27,7 +27,7 @@ function HomePage(props) {
           <div className="banner">
             <div className="banner-title">
               <p> discover quick & easy</p>
-              <p>recipe</p>
+              <p>resipe</p>
             </div>
           </div>
           <Container className="mt-3 ">
@@ -45,7 +45,15 @@ function HomePage(props) {
 
             <Row fluid="true" className="justify-content-center my-5">
               {products.map((product) => (
-                <Col md={4} lg={4} xl={3} sm={6} xs={12} className="mx-3">
+                <Col
+                  md={4}
+                  lg={4}
+                  xl={3}
+                  sm={6}
+                  xs={12}
+                  className="mx-3"
+                  key={product.id}
+                >
                   <Card style={{ width: "18rem" }} className="hover-zoom">
                     <Card.Body>
                       <Card.Title>{product.name}</Card.Title>
