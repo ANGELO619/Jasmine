@@ -47,7 +47,7 @@ export default function CartPage(props) {
                       className="small"
                     ></img>
                   </div>
-                  <div className="min-30">
+                  <div>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </div>
                   <div>

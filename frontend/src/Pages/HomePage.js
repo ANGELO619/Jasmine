@@ -27,7 +27,7 @@ function HomePage(props) {
           <div className="banner">
             <div className="banner-title">
               <p> discover quick & easy</p>
-              <p>resipe</p>
+              <p>recipe</p>
             </div>
           </div>
           <Container className="mt-3 ">
