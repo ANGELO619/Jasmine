@@ -1,4 +1,4 @@
-import { AUTH_LOGIN } from "../constants/authConstants"
+import { AUTH_LOGIN, AUTH_LOGOUT } from "../constants/authConstants"
 
 export const login = (uid) => (dispatch, getState) => {
     dispatch({
@@ -6,5 +6,11 @@ export const login = (uid) => (dispatch, getState) => {
         payload: {
             uid
         }
+    })
+}
+
+export const logout = () => (dispatch) => {
+    dispatch({
+        type: AUTH_LOGOUT
     })
 }

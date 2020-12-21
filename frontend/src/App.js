@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./App.css";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,7 +10,8 @@ import CartPage from "./Pages/CartPage";
 import { Nav, NavDropdown, Navbar, } from "react-bootstrap";
 import firebase from "firebase";
 import LoginDialog from './components/LoginDialog'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SHOW_LOGIN_DIALOG } from './constants/authConstants'
 
 const firebaseConfig = {
   apiKey: "AIzaSyDsR3cCWvvEUfCtTVaGMxb-of71S30OfYw",
@@ -26,19 +27,40 @@ if (firebase.apps.length === 0) {
 }
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
-
+  const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
-  firebase.auth().onAuthStateChanged(user => {
-    console.log({ user, auth })
-  })
+
+  const setShowLogin = useCallback((show) => {
+    dispatch({
+      type: AUTH_SHOW_LOGIN_DIALOG,
+      payload: show
+    })
+  }, [dispatch])
+
+  const setIsLogin = useCallback((isLogin, uid = null) => {
+    if (!isLogin) {
+      dispatch({
+        type: AUTH_LOGOUT
+      })
+      return
+    }
+    dispatch({
+      type: AUTH_LOGIN,
+      payload: uid
+    })
+  }, [dispatch])
 
   useEffect(() => {
     const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      setIsLogin(!!user);
+      if (!user) {
+        setIsLogin(false)
+        return
+      }
+      setShowLogin(false)
+      setIsLogin(true, user.uid)
     });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  }, []);
+  }, [setIsLogin, setShowLogin]);
 
   return (
     <Router>
@@ -51,12 +73,16 @@ function App() {
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#link">Link</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item onClick={() => firebase.auth().signOut()}>Logout</NavDropdown.Item>
+                {auth.isLogin ?
+                  <NavDropdown.Item onClick={() => firebase.auth().signOut()}>Logout</NavDropdown.Item> :
+
+                  <NavDropdown.Item onClick={() => setShowLogin(true)}>Login</NavDropdown.Item>
+                }
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <LoginDialog show={isLogin} onHide={() => setIsLogin(false)} setModalShow={setIsLogin}></LoginDialog>
+        <LoginDialog show={auth.showLoginDialog} onHide={() => setShowLogin(false)} callback={setIsLogin}></LoginDialog>
 
         <main className="main">
           <div className="content">

@@ -9,9 +9,9 @@ export default function LoginDialog(props) {
         signInFlow: 'popup',
         callbacks: {
             signInSuccessWithAuthResult: () => {
+                props.callback(false)
                 return false
             },
-            // signInSuccess: () => props.setModalShow(false)
         },
         signInOptions: [
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
