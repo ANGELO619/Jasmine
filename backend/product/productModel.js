@@ -8,7 +8,7 @@ class Product extends AbstractModel {
 	price
 	options
 	countInStock
-	brand
+	category
 
 	constructor({
 		id,
@@ -17,7 +17,7 @@ class Product extends AbstractModel {
 		price,
 		options,
 		countInStock,
-		brand,
+		category,
 		image
 	}) {
 		this.id = id
@@ -27,7 +27,7 @@ class Product extends AbstractModel {
 		this.stock = stock
 		this.options = options
 		this.countInStock = countInStock
-		this.brand = brand
+		this.category = category
 		this.image = image
 	}
 }

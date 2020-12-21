@@ -7,6 +7,8 @@ const app = express();
 const productRoutes = require('./product/productRoutes');
 const cartRoutes = require('./cart/cartRoutes');
 
+app.use(express.static('public'))
+
 app.use(logger('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -16,4 +18,4 @@ app.use(cors());
 app.use('/products', productRoutes);
 app.use('/carts', cartRoutes);
 
-module.exports = app;
+module.exports = app

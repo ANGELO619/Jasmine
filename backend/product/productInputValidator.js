@@ -1,4 +1,6 @@
 class ProductInputValidator {
+    constructor() { }
+
     makeException(status, message) {
         return {
             status,
@@ -13,7 +15,7 @@ class ProductInputValidator {
         const {
             name,
             price,
-            brand,
+            category,
         } = req.body
         if (!name) {
             res.status(400).send(this.makeException(400, `missing name.`))
@@ -23,8 +25,8 @@ class ProductInputValidator {
             res.status(400).send(this.makeException(400, `missing price.`))
         }
 
-        if (!brand) {
-            res.status(400).send(this.makeException(400, `missing brand.`))
+        if (!category) {
+            res.status(400).send(this.makeException(400, `missing category.`))
         }
 
         next()

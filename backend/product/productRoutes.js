@@ -8,14 +8,13 @@ const ProductInputValidator = require('./productInputValidator');
 
 const productCollection = admin.firestore().collection(ProductConstant.PRODUCT_COLLECTION)
 const productRepository = new ProductRepository(productCollection)
+const productInputValidator = new ProductInputValidator()
 const productController = new ProductController(productRepository, productInputValidator)
 
-const productInputValidator = new ProductInputValidator()
+router.post('/', (req, res, next) => productInputValidator.validateCreateProductInput(req, res, next), (req, res) => productController.create(req, res));
 
-router.post('/', productInputValidator.validateCreateProductInput, productController.create);
+router.put('/:productId', (req, res, next) => productInputValidator.validateUpdateProductInput(req, res, next), (req, res) => productController.update(req, res));
 
-router.put('/:id', productInputValidator.validateUpdateProductInput, productController.update);
-
-router.delete('/:id', productInputValidator.validateRemoveProductInput, productController.remove);
+router.delete('/:productId', (req, res, next) => productInputValidator.validateRemoveProductInput(req, res, next), (req, res) => productController.remove(req, res));
 
 module.exports = router;
