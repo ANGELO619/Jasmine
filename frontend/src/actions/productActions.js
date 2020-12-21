@@ -1,4 +1,3 @@
-import Axios from "axios";
 import MockData from "../MockData";
 import {
   PRODUCT_LIST_FAIL,
