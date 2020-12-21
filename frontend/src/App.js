@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
 import CartPage from "./Pages/CartPage";
-import { Nav, NavDropdown, Navbar, } from "react-bootstrap";
+import { Nav, Navbar, } from "react-bootstrap";
 import firebase from "firebase";
 import LoginDialog from './components/LoginDialog'
 import { useDispatch, useSelector } from "react-redux";
@@ -70,15 +70,11 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                {auth.isLogin ?
-                  <NavDropdown.Item onClick={() => firebase.auth().signOut()}>Logout</NavDropdown.Item> :
+              {auth.isLogin ?
+                <Nav.Link title="Logout" onClick={() => firebase.auth().signOut()}>Logout</Nav.Link> :
 
-                  <NavDropdown.Item onClick={() => setShowLogin(true)}>Login</NavDropdown.Item>
-                }
-              </NavDropdown>
+                <Nav.Link title="Login" onClick={() => setShowLogin(true)}>Login</Nav.Link>
+              }
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -91,7 +87,6 @@ function App() {
             <Route path="/" exact={true} component={HomePage} />
           </div>
         </main>
-        {/* <footer className="footer">All right reserved.</footer> */}
       </div>
     </Router>
   );
