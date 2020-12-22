@@ -99,11 +99,14 @@ function App(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Nav>
-              <Nav.Link href="/cart">
-                <Cart size={24} >
+              {auth.isLogin ? (
+                <Nav.Link href="/cart">
+                  <Cart size={24} >
 
-                </Cart><Badge variant="danger">{cart.items.length}</Badge>
-              </Nav.Link>
+                  </Cart><Badge variant="danger">{cart.items.length}</Badge>
+                </Nav.Link>
+              ) : null}
+
               {auth.isLogin ? (
                 <Nav.Link href="/profile">Profile</Nav.Link>
               ) : null}
