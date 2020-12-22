@@ -11,7 +11,16 @@ function ProductPage(props) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
-  const [product, setProduct] = useState({})
+  const [product, setProduct] = useState({
+    id: '',
+    name: '',
+    description: '',
+    price: 0,
+    options: '',
+    countInStock: 0,
+    category: '',
+    image: ''
+  })
 
   const firestore = useFirestore()
 
@@ -85,7 +94,7 @@ function ProductPage(props) {
                   <Dropdown.Toggle id="dropdown-basic">{qty}</Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    {[...Array(product.countInStock).keys()].map((x) => (
+                    {[...Array(Number(product.countInStock)).keys()].map((x) => (
                       <Dropdown.Item key={x} eventKey={x + 1} onSelect={
                         (value) => setQty(value)
                       }>

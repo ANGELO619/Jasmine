@@ -1,17 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { removeFromCart, updateCartItem } from "../../actions/cartActions";
 import { Row, Col, Card, Button, Dropdown } from "react-bootstrap";
-
 import "../../css/Cart.css";
 
 export default function ShoppingCart(props) {
-
-  const dispatch = useDispatch();
-
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
-  };
 
   return (
     <Card>
@@ -27,18 +18,16 @@ export default function ShoppingCart(props) {
             <Col md={8} lg={8} xl={8} sm={8} xs={8} className="d-flex flex-row-reverse align-items-center justify-content-around">
               <Button
                 variant="danger"
-                onClick={() => removeFromCartHandler(item.product.id)}
+                onClick={() => props.onRemoveItemFromCart(item.product)}
               >
                 Delete              </Button>
               <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">{item.qty}</Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  {[...Array(item.product.countInStock).keys()].map((x) => (
+                  {[...Array(Number(item.product.countInStock)).keys()].map((x) => (
                     <Dropdown.Item key={x} eventKey={x + 1} onSelect={
-                      (eventKey, event) => dispatch(
-                        updateCartItem({ product: item.product, qty: Number(eventKey) })
-                      )
+                      (eventKey, event) => props.onUpdateCart({ product: item.product, qty: Number(eventKey) })
                     }>
                       {x + 1}
                     </Dropdown.Item>
