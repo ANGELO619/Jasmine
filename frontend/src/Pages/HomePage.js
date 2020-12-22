@@ -5,12 +5,19 @@ import "../css/Home.css";
 import { useFirestore } from "react-redux-firebase";
 import Loading from "../components/Loading";
 import ProductModal from "../components/ProductMoodal";
+import { Transition } from 'react-transition-group';
 
 function HomePage() {
   const firestore = useFirestore();
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
+  const [categories, setCategories] = useState([])
+  const [filter, setFilter] = useState('')
+  const [inProp, setInProp] = useState(false);
+  let [productsCache, setProductCache] = useState([])
+
+  const duration = 300;
 
   const handleClose = () => setShowModal(false);
   const handleShow = (product) => {
@@ -18,14 +25,58 @@ function HomePage() {
     setShowModal(true);
   };
 
+  const handleCategoryClick = (selectedCategory) => {
+    setInProp(false)
+    if (filter === selectedCategory) {
+      setFilter('')
+      setProducts(productsCache);
+      setTimeout(() => {
+        setInProp(true)
+      }, duration);
+      return
+    }
+    setFilter(selectedCategory)
+
+    const filteredProduct = productsCache.filter(product => product.category == selectedCategory)
+
+    setProducts(filteredProduct)
+    setTimeout(() => {
+      setInProp(true)
+    }, duration);
+  }
+
   useEffect(() => {
     firestore
       .collection("products")
       .get()
-      .then((snapshot) => {
-        setProducts(snapshot.docs.map((doc) => doc.data()));
+      .then((doc) => {
+        const productsDocs = doc.docs.map((doc) => doc.data())
+        setProducts(productsDocs);
+        setProductCache(productsDocs)
+        setTimeout(() => {
+          setInProp(true)
+        }, duration);
+      })
+  }, []);
+
+  useEffect(() => {
+    firestore
+      .collection("views")
+      .doc('product-categories')
+      .get()
+      .then((doc) => {
+        setCategories(doc.data().categories)
       });
   }, []);
+
+
+  const transitionStyles = {
+    entering: { opacity: 1 },
+    entered: { opacity: 1 },
+    exiting: { opacity: 0 },
+    exited: { opacity: 0 },
+  };
+
 
   return (
     <div>
@@ -36,56 +87,63 @@ function HomePage() {
         </div>
       </div>
       <Container className="mt-3 ">
-        <Row className="justify-content-md-center  my-5">
-          {/* <Loading
-            type="balls"
-            color="#ffffff"
-            height={"20%"}
-            width={"20%"}
-          ></Loading> */}
-          <Col xs lg="4" className="catagory-items">
-            1 of 3
-          </Col>
-          <Col auto="true" className="catagory-items">
-            Variable width content
-          </Col>
-          <Col xs lg="4" className="catagory-items">
-            3 of 3
-          </Col>
+        <Row className="justify-content-md-center">
+          {categories.map((category) => (
+            <Col
+              xs={12} sm={12} md={2} lg={6} lg={2}
+              className="catagory-items mx-lg-2 my-1 d-flex justify-content-center align-items-center"
+              key={category} onClick={() => handleCategoryClick(category)}
+              style={{
+                backgroundColor: filter == category ? '#69dc9e' : '#FFF',
+                filter: `drop-shadow(3px 5px 0.3rem #dbd9d7)`,
+                height: '3rem',
+                // border: '0.1rem solid #dbd9d7'
+              }}>
+              { category}
+            </Col>
+          ))}
         </Row>
 
         <Row className="justify-content-center my-5">
           {products.map((product) => (
-            <Col
-              md={4}
-              lg={4}
-              xl={3}
-              sm={6}
-              xs={12}
-              className="mx-3"
-              key={product.id}
-            >
-              <div className=" d-flex justify-content-center my-2  ">
-                <Card style={{ width: "18rem" }} className=" hover-zoom mr-b ">
-                  <Card.Body className="cb">
-                    <Card.Title>{product.name}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      <Link to={`/product/${product.id}`}>
-                        <Card.Img
-                          className="card-image-size"
-                          variant="top"
-                          src={product.image}
-                        />
-                      </Link>
-                      {product.brand} € {product.price}
-                    </Card.Subtitle>
-                    <Card.Text className="truncate">
-                      {product.description}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </div>
-            </Col>
+            <Transition in={inProp} timeout={duration}>
+              {state => (
+                <Col
+                  md={4}
+                  lg={4}
+                  xl={3}
+                  sm={6}
+                  xs={12}
+                  className="mx-3"
+                  key={product.id}
+                  style={{
+                    ...transitionStyles[state]
+                  }}
+                  className={`fade fade-${state} mx-3`}
+                >
+                  <div className=" d-flex justify-content-center my-2  ">
+                    <Card style={{ width: "18rem" }} className=" hover-zoom mr-b ">
+                      <Card.Body className="cb">
+                        <Card.Title>{product.name}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">
+                          <Link to={`/product/${product.id}`}>
+                            <Card.Img
+                              className="card-image-size"
+                              variant="top"
+                              src={product.image}
+                            />
+                          </Link>
+                          {product.brand} € {product.price}
+                        </Card.Subtitle>
+                        <Card.Text className="truncate">
+                          {product.description}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                </Col>
+              )}
+            </Transition>
           ))}
         </Row>
         <ProductModal
@@ -94,7 +152,7 @@ function HomePage() {
           product={selectedProduct}
         ></ProductModal>
       </Container>
-    </div>
+    </div >
   );
 }
 
