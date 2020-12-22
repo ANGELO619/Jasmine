@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../../actions/cartActions";
+import { removeFromCart, updateCartItem } from "../../actions/cartActions";
 import { Row, Col, Card, Button } from "react-bootstrap";
 
 import "../../css/cart.css";
@@ -47,7 +47,7 @@ export default function ShoppingCart(props) {
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.product, Number(e.target.value))
+                          updateCartItem({ product: item.product, qty: Number(e.target.value) })
                         )
                       }
                     >

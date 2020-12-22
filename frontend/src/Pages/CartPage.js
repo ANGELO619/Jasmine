@@ -16,8 +16,6 @@ export default function CartPage(props) {
     : 1;
   const cart = useSelector((state) => state.cart);
 
-  console.log(cart);
-
   const { items } = cart;
 
   const dispatch = useDispatch();
