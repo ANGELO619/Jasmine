@@ -77,7 +77,7 @@ function App() {
 
   return (
     <Router>
-      <div className="grid-container">
+      <div >
         <Navbar className="bg-main" expand="lg">
           <Link to="/">
             <Navbar.Brand href="#home">JASMINE</Navbar.Brand>
@@ -107,13 +107,11 @@ function App() {
           callback={setIsLogin}
         ></LoginDialog>
 
-        <main className="main">
-          <div className="content">
-            <Route path="/cart/:id?" component={CartPage} />
-            <Route path="/product/:id" component={ProductPage} />
-            <Route path="/" exact={true} component={HomePage} />
-            <Route path="/profile" component={ProfilePage} />
-          </div>
+        <main>
+          <Route path="/cart/:id?" component={CartPage} />
+          <Route path="/product/:id" component={ProductPage} />
+          <Route path="/" exact={true} component={HomePage} />
+          <Route path="/profile" component={ProfilePage} />
         </main>
       </div>
     </Router>

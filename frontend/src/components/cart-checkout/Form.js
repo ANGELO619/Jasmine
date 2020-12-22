@@ -8,13 +8,13 @@ export default function AddressForm(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    <Container>
+    <div>
       <Card>
         <Card.Body>
           <Card.Title className="text-left title">address</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             <Row className="mb-5">
-              <Col md={12}>
+              <Col md={12} lg={12} xl={12} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>name</p>
@@ -28,7 +28,7 @@ export default function AddressForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={12}>
+              <Col md={12} lg={12} xl={12} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>email</p>
@@ -42,7 +42,7 @@ export default function AddressForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={12}>
+              <Col md={12} lg={12} xl={12} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>address</p>
@@ -56,7 +56,7 @@ export default function AddressForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} sm={12} xs={12}>
+              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>sub-district</p>
@@ -70,7 +70,7 @@ export default function AddressForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} sm={12} xs={12}>
+              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>distric</p>
@@ -84,7 +84,7 @@ export default function AddressForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} sm={12} xs={12}>
+              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>province</p>
@@ -98,7 +98,7 @@ export default function AddressForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} sm={12} xs={12}>
+              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>post code</p>
@@ -115,12 +115,12 @@ export default function AddressForm(props) {
             </Row>
           </Card.Subtitle>
 
-          <Row fluid>
+          <Row>
             <Col md={12} className="text-left">
               <h3 className="title">payment method</h3>
             </Col>
 
-            <Col md={12} fluid className="justify-content-center my-5 title">
+            <Col md={12} className="justify-content-center my-5 title">
               <Button
                 className="button-text qr-button"
                 onClick={(e) => {
@@ -152,18 +152,14 @@ export default function AddressForm(props) {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body className="text-center">
-          <p>Woohoo, you're reading this text in a modal!</p>
           <QRCode value="http://facebook.github.io/react/" />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="danger" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
-    </Container>
+    </div>
   );
 }

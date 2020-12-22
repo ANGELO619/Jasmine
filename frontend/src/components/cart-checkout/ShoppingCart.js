@@ -19,17 +19,12 @@ export default function ShoppingCart(props) {
         <Card.Title className="text-left title">shopping cart</Card.Title>
 
         {props.items.map((item) => (
-          <Row key={item.product.id} fluid>
-            <Col xs={4}>
+          <Row key={item.product.id}>
+            <Col md={4} lg={4} xl={4} sm={4} xs={4}>
               <img src={item.product.image} alt={item.product.name} className="product-image"></img>
             </Col>
-            <Col xs={4} className="">
-              <div>
-                <div className="h1 text-left"> {item.product.name}</div>
-                <div className="title text-left">{item.product.description}</div>
-              </div>
-            </Col>
-            <Col xs={4} auto className="d-flex flex-row-reverse align-items-center justify-content-around">
+
+            <Col md={8} lg={8} xl={8} sm={8} xs={8} className="d-flex flex-row-reverse align-items-center justify-content-around">
               <Button
                 variant="danger"
                 onClick={() => removeFromCartHandler(item.product.id)}
@@ -40,7 +35,7 @@ export default function ShoppingCart(props) {
 
                 <Dropdown.Menu>
                   {[...Array(item.product.countInStock).keys()].map((x) => (
-                    <Dropdown.Item eventKey={x + 1} onSelect={
+                    <Dropdown.Item key={x} eventKey={x + 1} onSelect={
                       (eventKey, event) => dispatch(
                         updateCartItem({ product: item.product, qty: Number(eventKey) })
                       )
@@ -52,6 +47,8 @@ export default function ShoppingCart(props) {
               </Dropdown>
               <div>
               </div>
+              <div className="h5 text-left"> {item.product.name}</div>
+
             </Col>
           </Row>
         ))}

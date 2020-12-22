@@ -47,25 +47,23 @@ export default function CartPage(props) {
 
 
   return (
-    <Container fluid className="text-center">
-      <Row fluid className="my-3">
-        <Col md={8} lg={8} xl={8} sm={8} xs={12}>
-          {items.length === 0 ? (
-            <MessageBox>
-              Cart is empty. <Link to="/">Go Shopping</Link>
-            </MessageBox>
-          ) : (
-              <Row fluid className="ml-0">
-                <Col>
-                  <ShoppingCart items={items}></ShoppingCart>
-                </Col>
-              </Row>
-            )}
-        </Col>
-        <Col md={4} lg={4} xl={4} sm={4} xs={12}>
-          <AddressForm></AddressForm>
-        </Col>
-      </Row>
-    </Container>
+    <Row className="mx-xs-0 mx-smx-0 mx-md-0 mx-lg-0 mx-xl-0 mt-3">
+      <Col md={6} lg={6} xl={6} sm={6} xs={12}>
+        {items.length === 0 ? (
+          <MessageBox>
+            Cart is empty. <Link to="/">Go Shopping</Link>
+          </MessageBox>
+        ) : (
+            <Row >
+              <Col>
+                <ShoppingCart items={items}></ShoppingCart>
+              </Col>
+            </Row>
+          )}
+      </Col>
+      <Col md={6} lg={6} xl={6} sm={6} xs={12}>
+        <AddressForm></AddressForm>
+      </Col>
+    </Row>
   );
 }

@@ -42,7 +42,7 @@ function ProductPage(props) {
       ) : error ? (
         <MessageBox variant="danger">${error}</MessageBox>
       ) : (
-            <Container fluid>
+            <Container>
               <Row>
                 <Col md={6}>
                   <div className="details-img text-right">
