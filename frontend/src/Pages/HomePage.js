@@ -114,28 +114,33 @@ function HomePage() {
                   xl={3}
                   sm={6}
                   xs={12}
+                  className="mx-3"
                   key={product.id}
                   style={{
                     ...transitionStyles[state]
                   }}
                   className={`fade fade-${state} mx-3`}
                 >
-                  <Card
-                    style={{ width: "18rem" }}
-                    className="hover-zoom"
-                    onClick={() => handleShow(product)}
-                  >
-                    <Card.Body>
-                      <Card.Title>{product.name}</Card.Title>
-                      <Card.Subtitle className="mb-2 text-muted">
-                        {/* <Link to={`/product/${product.id}`}> */}
-                        <Card.Img variant="top" src={product.image} />
-                        {/* </Link> */}
-                        {product.brand} € {product.price}
-                      </Card.Subtitle>
-                      <Card.Text>{product.description}</Card.Text>
-                    </Card.Body>
-                  </Card>
+                  <div className=" d-flex justify-content-center my-2  ">
+                    <Card style={{ width: "18rem" }} className=" hover-zoom mr-b ">
+                      <Card.Body className="cb">
+                        <Card.Title>{product.name}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">
+                          <Link to={`/product/${product.id}`}>
+                            <Card.Img
+                              className="card-image-size"
+                              variant="top"
+                              src={product.image}
+                            />
+                          </Link>
+                          {product.brand} € {product.price}
+                        </Card.Subtitle>
+                        <Card.Text className="truncate">
+                          {product.description}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </div>
                 </Col>
               )}
             </Transition>
