@@ -91,9 +91,14 @@ function HomePage() {
           {categories.map((category) => (
             <Col
               xs={12} sm={12} md={2} lg={6} lg={2}
-              className="catagory-items mx-lg-2 my-1"
+              className="catagory-items mx-lg-2 my-1 d-flex justify-content-center align-items-center"
               key={category} onClick={() => handleCategoryClick(category)}
-              style={{ backgroundColor: filter == category ? 'bisque' : '#FFF', filter: 'drop-shadow(5px 7px 0.75rem #dbd9d7)' }}>
+              style={{
+                backgroundColor: filter == category ? '#69dc9e' : '#FFF',
+                filter: `drop-shadow(3px 5px 0.3rem #dbd9d7)`,
+                height: '3rem',
+                // border: '0.1rem solid #dbd9d7'
+              }}>
               { category}
             </Col>
           ))}
