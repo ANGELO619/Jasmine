@@ -9,6 +9,7 @@ export default {
       brand: "Maggi",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      category: 'เครื่องปรุง'
     },
     {
       id: "2",
@@ -19,6 +20,7 @@ export default {
       brand: "Maggi",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      category: 'เครื่องปรุง'
     },
     {
       id: "3",
@@ -29,6 +31,7 @@ export default {
       brand: "Maggi",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      category: 'เครื่องปรุง'
     },
   ],
 };
