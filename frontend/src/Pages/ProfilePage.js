@@ -1,11 +1,6 @@
-import { useEffect, useState } from "react";
-import { detailsUser, updateUserProfile } from "../actions/userActions";
-import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+import { useState } from "react";
 import "../css/Profile.css";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
-import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 export default function ProfilePage() {
   const [name, setName] = useState("");
@@ -15,48 +10,6 @@ export default function ProfilePage() {
   const [district, setDistrict] = useState("");
   const [province, setProvince] = useState("");
   const [zipCode, setZipCode] = useState("");
-
-  // const userSignin = useSelector((state) => state.userSignin);
-  // // const { userInfo } = userSignin;
-  // const userDetails = useSelector((state) => state.userDetails);
-  // const { loading, error, user } = userDetails;
-  // const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  // const {
-  //   success: successUpdate,
-  //   error: errorUpdate,
-  //   loading: loadingUpdate,
-  // } = userUpdateProfile;
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (!user) {
-  //     dispatch({ type: USER_UPDATE_PROFILE_RESET });
-  //     dispatch(detailsUser(userInfo.id));
-  //   } else {
-  //     setName(user.name);
-  //     setEmail(user.email);
-  //     setAddress(user.address);
-  //     setSubDistrict(user.subdistrict);
-  //     setDistrict(user.district);
-  //     setProvince(user.province);
-  //     setZipCode(user.zipCode);
-  //   }
-  // }, [dispatch, userInfo.id, user]);
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-  //   // dispatch update profile
-  //   dispatch(
-  //     updateUserProfile({
-  //       userId: user.id,
-  //       name,
-  //       email,
-  //       address,
-  //       subDistrict,
-  //       district,
-  //       province,
-  //       zipCode,
-  //     })
-  //   );
-  // };
 
   return (
     <div>
@@ -69,7 +22,7 @@ export default function ProfilePage() {
             <Container className="img-container">
               <Row>
                 <Col className="text-center" xs={12} md={12}>
-                  <img src="/images/Avatar.jpg" className="Avatar-img" />
+                  <img alt='' src="/images/Avatar.jpg" className="Avatar-img" />
                 </Col>
               </Row>
             </Container>

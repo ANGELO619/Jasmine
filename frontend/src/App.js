@@ -94,10 +94,10 @@ function App() {
                   Logout
                 </Nav.Link>
               ) : (
-                <Nav.Link title="Login" onClick={() => setShowLogin(true)}>
-                  Login
-                </Nav.Link>
-              )}
+                  <Nav.Link title="Login" onClick={() => setShowLogin(true)}>
+                    Login
+                  </Nav.Link>
+                )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeFromCart, updateCartItem } from "../../actions/cartActions";
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button, Dropdown } from "react-bootstrap";
 
-import "../../css/cart.css";
+import "../../css/Cart.css";
 
 export default function ShoppingCart(props) {
 
@@ -16,53 +16,46 @@ export default function ShoppingCart(props) {
   return (
     <Card>
       <Card.Body>
-        <Card.Title className="text-left title ">shopping cart</Card.Title>
+        <Card.Title className="text-left title">shopping cart</Card.Title>
 
         {props.items.map((item) => (
           <Row key={item.product.id} fluid>
-            <Col>
-              <img src={item.product.image} alt={item.product.name} className="small"></img>
+            <Col xs={4}>
+              <img src={item.product.image} alt={item.product.name} className="product-image"></img>
             </Col>
-            <Col className="m-5">
+            <Col xs={4} className="">
               <div>
-                <p className="title text-left"> {item.product.name}</p>
-                <p>{item.product.description}</p>
+                <div className="h1 text-left"> {item.product.name}</div>
+                <div className="title text-left">{item.product.description}</div>
               </div>
             </Col>
-            <Col auto className="my-0 ">
+            <Col xs={4} auto className="d-flex flex-row-reverse align-items-center justify-content-around">
               <Button
-                className="rounded-pill my-5"
-                variant="info"
+                variant="danger"
                 onClick={() => removeFromCartHandler(item.product.id)}
               >
-                Delete
-              </Button>
-              <Row>
-                <Col className="mx-5 ">
-                  <p>qty :</p>
-                </Col>
-                <Col auto className="text-left justify-content-start">
-                  <div>
-                    <select
-                      value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          updateCartItem({ product: item.product, qty: Number(e.target.value) })
-                        )
-                      }
-                    >
-                      {[...Array(item.product.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </Col>
-              </Row>
+                Delete              </Button>
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">{item.qty}</Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {[...Array(item.product.countInStock).keys()].map((x) => (
+                    <Dropdown.Item eventKey={x + 1} onSelect={
+                      (eventKey, event) => dispatch(
+                        updateCartItem({ product: item.product, qty: Number(eventKey) })
+                      )
+                    }>
+                      {x + 1}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+              <div>
+              </div>
             </Col>
           </Row>
         ))}
+
       </Card.Body>
       <Card.Footer className="text-right">
         <h2>

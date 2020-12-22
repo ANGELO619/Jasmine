@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import MessageBox from "../components/MessageBox";
 import { addToCart } from "../actions/cartActions";
 import { Container, Row, Col } from "react-bootstrap";
 
-import "../css/cart.css";
+import "../css/Cart.css";
 import ShoppingCart from "../components/cart-checkout/ShoppingCart";
 import AddressForm from "../components/cart-checkout/Form";
 
@@ -16,7 +16,17 @@ export default function CartPage(props) {
     : 1;
   const cart = useSelector((state) => state.cart);
 
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
+
   const { items } = cart;
+
+  const preItemLength = usePrevious(items.length)
 
   const dispatch = useDispatch();
 
@@ -24,11 +34,17 @@ export default function CartPage(props) {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
+
   }, [dispatch, productId, qty]);
 
-  const checkoutHandler = () => {
-    props.history.push("/signin?redirect=shipping");
-  };
+  useEffect(() => {
+    if (items.length === 0 && preItemLength) {
+      props.history.push('/')
+    }
+
+  }, [dispatch, items, preItemLength, props]);
+
+
 
   return (
     <Container fluid className="text-center">

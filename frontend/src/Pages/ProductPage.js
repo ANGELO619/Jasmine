@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
@@ -7,7 +7,7 @@ import { AUTH_SHOW_LOGIN_DIALOG } from "../constants/authConstants"
 
 import "../css/Product.css";
 import { Col, Container, Row } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 
 function ProductPage(props) {
   const [qty, setQty] = useState(1);
@@ -78,16 +78,19 @@ function ProductPage(props) {
                       </li>
                       <li>
                         <b>Qty: </b>
-                        <select
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
-                        >
-                          {[...Array(product.countInStock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </select>
+                        <Dropdown>
+                          <Dropdown.Toggle id="dropdown-basic">{qty}</Dropdown.Toggle>
+
+                          <Dropdown.Menu>
+                            {[...Array(product.countInStock).keys()].map((x) => (
+                              <Dropdown.Item eventKey={x + 1} onSelect={
+                                (value, event) => setQty(value)
+                              }>
+                                {x + 1}
+                              </Dropdown.Item>
+                            ))}
+                          </Dropdown.Menu>
+                        </Dropdown>
                       </li>
                     </ul>
                     <Button className="mx-3" onClick={addToCartHandler}>

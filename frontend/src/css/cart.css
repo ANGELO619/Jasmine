@@ -23,3 +23,8 @@
 .qr-button {
   width: 50%;
 }
+
+.product-image {
+  width: 128px;
+  height: 128px;
+}

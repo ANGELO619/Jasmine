@@ -4,7 +4,7 @@ export default {
       id: "1",
       name: "แม็กกี้ เหยาะ",
       image: "/images/Maggi.jpg",
-      countInStock: 20,
+      countInStock: 9,
       price: "4",
       brand: "Maggi",
       description:
