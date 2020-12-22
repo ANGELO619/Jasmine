@@ -7,7 +7,7 @@ class ProductController {
     async create(req, res) {
         try {
             const product = await this.productRepository.create(req.body)
-            res.json(product)
+            return res.json(product)
         } catch (e) {
             console.error(e)
             req.status(500).end()
@@ -17,7 +17,7 @@ class ProductController {
     async update(req, res) {
         try {
             await this.productRepository.update(req.params.productId, req.body)
-            res.send(200)
+            return res.send(200)
         } catch (e) {
             console.error(e)
             req.status(500).end()
@@ -27,7 +27,7 @@ class ProductController {
     async remove(req, res) {
         try {
             await this.productRepository.remove(req.params.productId)
-            res.send(200)
+            return res.send(200)
         } catch (e) {
             console.error(e)
             req.status(500).end()
