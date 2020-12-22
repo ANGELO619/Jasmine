@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import "../css/Cart.css";
 import ShoppingCart from "../components/cart-checkout/ShoppingCart";
-import AddressForm from "../components/cart-checkout/Form";
-import { useFirestore } from "react-redux-firebase";
+import PlaceOrderForm from "../components/cart-checkout/Form";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useSelector } from "react-redux";
 
 export default function CartPage(props) {
   const firestore = useFirestore();
   const cartId = "test_cart";
+
+  const currentUser = useSelector((state) => state.auth.user);
 
   const [cart, setCart] = useState({
     id: null,
@@ -70,7 +73,7 @@ export default function CartPage(props) {
         ></ShoppingCart>
       </Col>
       <Col md={6} lg={6} xl={6} sm={6} xs={12}>
-        <AddressForm></AddressForm>
+        <PlaceOrderForm currentUser={currentUser}></PlaceOrderForm>
       </Col>
     </Row>
   );

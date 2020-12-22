@@ -2,7 +2,21 @@ import React, { useState } from "react";
 import { Col, Card, Row, Button, Modal } from "react-bootstrap";
 import QRCode from "qrcode.react";
 
-export default function AddressForm(props) {
+// PlaceOrderForm
+
+export default function PlaceOrderForm(props) {
+  const [information, setInformation] = useState(
+    props.currentUser || {
+      name: "",
+      email: "",
+      address: "",
+      subdistrict: "",
+      district: "",
+      province: "",
+      postCode: "",
+    }
+  );
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -11,7 +25,7 @@ export default function AddressForm(props) {
     <div>
       <Card>
         <Card.Body>
-          <Card.Title className="text-left title">address</Card.Title>
+          <Card.Title className="text-left title">information</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             <Row className="mb-5">
               <Col md={12} lg={12} xl={12} sm={12} xs={12}>
@@ -24,6 +38,7 @@ export default function AddressForm(props) {
                       name="name"
                       className="full-length-input"
                       required
+                      value={information.displayName}
                     ></input>
                   </div>
                 </div>
@@ -37,6 +52,7 @@ export default function AddressForm(props) {
                     <input
                       name="email"
                       className="full-length-input"
+                      value={information.email}
                       required
                     ></input>
                   </div>

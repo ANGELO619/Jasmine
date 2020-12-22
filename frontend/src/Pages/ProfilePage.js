@@ -2,31 +2,19 @@ import { useEffect, useState } from "react";
 import "../css/Profile.css";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { useFirebase } from "react-redux-firebase";
+import { useSelector } from "react-redux";
 
 export default function ProfilePage(props) {
+  const currentUser = useSelector((state) => state.auth.user);
   const firebase = useFirebase();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(currentUser?.displayName || "");
+  const [email, setEmail] = useState(currentUser?.email || "");
   const [address, setAddress] = useState("");
   const [subDistrict, setSubDistrict] = useState("");
   const [district, setDistrict] = useState("");
   const [province, setProvince] = useState("");
   const [zipCode, setZipCode] = useState("");
-
-  useEffect(() => {
-    const unregisterAuthObserver = firebase
-      .auth()
-      .onAuthStateChanged((user) => {
-        if (!user) {
-          return props.history.push("/");
-        }
-        const { displayName, email: _email } = user;
-        setName(displayName);
-        setEmail(_email);
-      });
-    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  }, []);
 
   const updateProfile = async (event) => {
     event.preventDefault();

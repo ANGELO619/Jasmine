@@ -9,7 +9,7 @@ import firebase from "firebase";
 import NumberInput from "../components/NumberInput";
 
 function ProductPage(props) {
-  const [qty, setQty] = useState(999);
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const [product, setProduct] = useState({

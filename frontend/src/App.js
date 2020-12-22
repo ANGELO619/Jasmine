@@ -34,7 +34,7 @@ function App() {
   );
 
   const setIsLogin = useCallback(
-    (isLogin, uid = null) => {
+    (isLogin, user = null) => {
       if (!isLogin) {
         dispatch({
           type: AUTH_LOGOUT,
@@ -43,7 +43,7 @@ function App() {
       }
       dispatch({
         type: AUTH_LOGIN,
-        payload: uid,
+        payload: user,
       });
     },
     [dispatch]
@@ -58,7 +58,7 @@ function App() {
           return;
         }
         setShowLogin(false);
-        setIsLogin(true, user.uid);
+        setIsLogin(true, user);
       });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, []);
