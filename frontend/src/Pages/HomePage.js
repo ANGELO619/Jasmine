@@ -9,25 +9,13 @@ function HomePage() {
   const firestore = useFirestore();
   const [products, setProducts] = useState([]);
 
-  const listenerSettings = {
-    collection: "products",
-    orderBy: ["createdAt", "asc"],
-    limit: 10,
-  };
-
   useEffect(() => {
     firestore
       .collection("products")
       .get()
-      .then((doc) => {
-        setProducts(doc.docs.map((doc) => doc.data()));
+      .then((snapshot) => {
+        setProducts(snapshot.docs.map((doc) => doc.data()));
       });
-
-    firestore.setListener(listenerSettings);
-
-    return function cleanup() {
-      firestore.unsetListener(listenerSettings);
-    };
   }, []);
 
   return (
@@ -68,18 +56,26 @@ function HomePage() {
               className="mx-3"
               key={product.id}
             >
-              <Card style={{ width: "18rem" }} className="hover-zoom">
-                <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    <Link to={`/product/${product.id}`}>
-                      <Card.Img variant="top" src={product.image} />
-                    </Link>
-                    {product.brand} € {product.price}
-                  </Card.Subtitle>
-                  <Card.Text>{product.description}</Card.Text>
-                </Card.Body>
-              </Card>
+              <div className=" d-flex justify-content-center my-2  ">
+                <Card style={{ width: "18rem" }} className=" hover-zoom mr-b ">
+                  <Card.Body className="cb">
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      <Link to={`/product/${product.id}`}>
+                        <Card.Img
+                          className="card-image-size"
+                          variant="top"
+                          src={product.image}
+                        />
+                      </Link>
+                      {product.brand} € {product.price}
+                    </Card.Subtitle>
+                    <Card.Text className="truncate">
+                      {product.description}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </div>
             </Col>
           ))}
         </Row>

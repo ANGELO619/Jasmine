@@ -27,6 +27,20 @@ export default function ProfilePage(props) {
     alert("Profile Updated!");
   };
 
+  useEffect(() => {
+    const unregisterAuthObserver = firebase
+      .auth()
+      .onAuthStateChanged((user) => {
+        if (!user) {
+          return props.history.push("/");
+        }
+        const { displayName, email: _email } = user;
+        setName(displayName);
+        setEmail(_email);
+      });
+    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+  }, []);
+
   return (
     <div>
       <div className="profile-title">

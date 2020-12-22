@@ -1,8 +1,14 @@
 import React, { useCallback, useEffect } from "react";
 import "./App.css";
 import "./index.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Link,
+  NavLink,
+  Route,
+} from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
 import ProfilePage from "./Pages/ProfilePage";
@@ -17,7 +23,7 @@ import {
 } from "./constants/authConstants";
 import { useFirebase } from "react-redux-firebase";
 
-function App() {
+function App(props) {
   const firebase = useFirebase();
   const dispatch = useDispatch();
 
@@ -72,8 +78,8 @@ function App() {
           </Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+          <Navbar.Collapse id="basic-navbar-nav ">
+            <Nav className="mr-auto ">
               {auth.isLogin ? (
                 <Nav.Link
                   title="Logout"
@@ -86,6 +92,9 @@ function App() {
                   Login
                 </Nav.Link>
               )}
+              {auth.isLogin ? (
+                <Nav.Link href="/profile">Profile</Nav.Link>
+              ) : null}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
