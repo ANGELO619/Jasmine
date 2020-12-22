@@ -68,7 +68,6 @@ function App(props) {
       .collection("carts")
       .doc('test_cart')
       .onSnapshot(snapshot => {
-        console.log(snapshot);
         setCart(snapshot.data());
       })
     return () => unsubscribe()
