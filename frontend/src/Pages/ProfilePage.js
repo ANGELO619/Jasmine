@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/Profile.css";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
+import { useFirebase } from "react-redux-firebase";
 
-export default function ProfilePage() {
+export default function ProfilePage(props) {
+  const firebase = useFirebase();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -11,18 +14,43 @@ export default function ProfilePage() {
   const [province, setProvince] = useState("");
   const [zipCode, setZipCode] = useState("");
 
+  useEffect(() => {
+    const unregisterAuthObserver = firebase
+      .auth()
+      .onAuthStateChanged((user) => {
+        if (!user) {
+          return props.history.push("/");
+        }
+        const { displayName, email: _email } = user;
+        setName(displayName);
+        setEmail(_email);
+      });
+    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+  }, []);
+
+  const updateProfile = async (event) => {
+    event.preventDefault();
+    await Promise.all([
+      firebase.auth().currentUser.updateEmail(email),
+      firebase.auth().currentUser.updateProfile({
+        displayName: name,
+      }),
+    ]);
+    alert("Profile Updated!");
+  };
+
   return (
     <div>
       <div className="profile-title">
         <label>Profile</label>
       </div>
       <div className="wrapper">
-        <Form>
+        <Form onSubmit={updateProfile}>
           <div>
             <Container className="img-container">
               <Row>
                 <Col className="text-center" xs={12} md={12}>
-                  <img alt='' src="/images/Avatar.jpg" className="Avatar-img" />
+                  <img alt="" src="/images/Avatar.jpg" className="Avatar-img" />
                 </Col>
               </Row>
             </Container>
@@ -94,7 +122,7 @@ export default function ProfilePage() {
               </Form.Group>
             </Form.Row>
             <Button className="btn" variant="primary" type="submit">
-              Edit Profile
+              Update Profile
             </Button>
           </div>
         </Form>

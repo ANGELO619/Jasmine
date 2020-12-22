@@ -8,7 +8,6 @@ import ProductPage from "./Pages/ProductPage";
 import ProfilePage from "./Pages/ProfilePage";
 import CartPage from "./Pages/CartPage";
 import { Nav, Navbar } from "react-bootstrap";
-import firebase from "firebase";
 import LoginDialog from "./components/LoginDialog";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,9 +15,12 @@ import {
   AUTH_LOGOUT,
   AUTH_SHOW_LOGIN_DIALOG,
 } from "./constants/authConstants";
+import { useFirebase } from "react-redux-firebase";
 
 function App() {
+  const firebase = useFirebase();
   const dispatch = useDispatch();
+
   const auth = useSelector((state) => state.auth);
 
   const setShowLogin = useCallback(
@@ -59,11 +61,11 @@ function App() {
         setIsLogin(true, user.uid);
       });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  }, [setIsLogin, setShowLogin]);
+  }, []);
 
   return (
     <Router>
-      <div >
+      <div>
         <Navbar className="bg-main" expand="lg">
           <Link to="/">
             <Navbar.Brand href="#home">JASMINE</Navbar.Brand>
@@ -80,10 +82,10 @@ function App() {
                   Logout
                 </Nav.Link>
               ) : (
-                  <Nav.Link title="Login" onClick={() => setShowLogin(true)}>
-                    Login
-                  </Nav.Link>
-                )}
+                <Nav.Link title="Login" onClick={() => setShowLogin(true)}>
+                  Login
+                </Nav.Link>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -104,4 +106,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
