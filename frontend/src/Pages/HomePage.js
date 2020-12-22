@@ -120,32 +120,34 @@ function HomePage() {
                   xl={3}
                   sm={6}
                   xs={12}
-                  className="mx-3"
+                  className="mx-2"
                   key={product.id}
                   style={{
                     ...transitionStyles[state],
                   }}
                   className={`fade fade-${state} mx-3`}
                 >
-                  <div className=" d-flex justify-content-center my-2  ">
+                  <div className="d-flex justify-content-center my-2  ">
                     <Card
-                      style={{ width: "18rem" }}
-                      className=" hover-zoom mr-b "
+                      className=" hover-zoom card-margin"
                       onClick={() => handleShow(product)}
                     >
-                      <Card.Body className="cb">
+                      <Card.Body className="text-center">
                         <Card.Title>{product.name}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">
-                          <Card.Img
-                            className="card-image-size"
-                            variant="top"
-                            src={product.image}
-                          />
-                          {product.brand} € {product.price}
+                        <Card.Img
+                          className="card-image-size "
+                          variant="top"
+                          src={product.image}
+                          // style={{ margin: "9rem", height: "9rem" }}
+                        />
+
+                        <Card.Subtitle className="my-3">
+                          {product.brand}
+                          {product.price}$
                         </Card.Subtitle>
-                        <Card.Text className="truncate">
-                          {product.description}
-                        </Card.Text>
+
+                        <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+                        <Card.Text>{product.description}</Card.Text>
                       </Card.Body>
                     </Card>
                   </div>
