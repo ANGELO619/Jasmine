@@ -46,32 +46,16 @@
 }
 
 .card-image-size {
-  width: 14rem;
-  height: 14rem;
+  width: 15rem;
+  height: 15rem;
   margin: 0 -0.3rem;
 }
 
 .card-margin {
   width: 25rem;
   height: 25rem;
-  margin: 0.3rem auto;
+  margin: 0;
   padding: 0;
-}
-
-@media only screen and (max-width: 768px) {
-  .card-margin {
-    margin: auto;
-  }
-  .card-image-size {
-    width: 11rem;
-    height: 12rem;
-    margin: 0 -0.3rem;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .card-margin {
-    margin: auto;
-  }
 }
 
 /* @media only screen and (max-width: 2561px) {
