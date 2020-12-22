@@ -12,12 +12,6 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "/office",
-        "function": "api"
-      }
     ]
   },
   "storage": {

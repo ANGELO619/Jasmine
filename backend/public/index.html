@@ -175,20 +175,37 @@
           });
         },
         async updateProduct(id, payload) {
-          this.loading = true
-          await axios.put(`/jasmine-ecommerce/us-central1/api/products/${id}`, payload)
-          this.loading = false
+          try {
+            this.loading = true
+            await firebase.firestore().collection('products').doc(id).update({
+              ...payload
+            })
+            this.loading = false
+          } catch (e) {
+            console.error(e)
+          }
         },
         async deleteProduct(id) {
           this.loading = true
-          await axios.delete(`/jasmine-ecommerce/us-central1/api/products/${id}`)
+          await firebase.firestore().collection('products').doc(id).delete(id)
           this.loading = false
         },
         async createProduct() {
           this.loading = true
-          await axios.post(`/jasmine-ecommerce/us-central1/api/products`, {
-            ...this.product
+
+          firebase.firestore().collection('views').doc('product-categories').update({
+            categories: firebase.firestore.FieldValue.arrayUnion(this.product.category)
           })
+
+          const createdRef = await firebase.firestore().collection('products').add({
+            ...this.product,
+            createdAt: new Date()
+          })
+
+          await createdRef.update({
+            id: createdRef.id
+          })
+
           this.page = 'list'
           this.clearProductField()
           this.loading = false
