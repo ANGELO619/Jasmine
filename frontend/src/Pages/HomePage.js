@@ -2,32 +2,33 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Container, Card } from "react-bootstrap";
 import "../css/Home.css";
-import { useFirestore } from 'react-redux-firebase'
-
+import { useFirestore } from "react-redux-firebase";
+import Loading from "../components/Loading";
 
 function HomePage() {
-  const firestore = useFirestore()
-  const [products, setProducts] = useState([])
-
+  const firestore = useFirestore();
+  const [products, setProducts] = useState([]);
 
   const listenerSettings = {
-    collection: 'products',
-    orderBy: ['createdAt', 'asc'],
-    limit: 10
-  }
-
+    collection: "products",
+    orderBy: ["createdAt", "asc"],
+    limit: 10,
+  };
 
   useEffect(() => {
-    firestore.collection('products').get().then(doc => {
-      setProducts(doc.docs.map(doc => doc.data()))
-    })
+    firestore
+      .collection("products")
+      .get()
+      .then((doc) => {
+        setProducts(doc.docs.map((doc) => doc.data()));
+      });
 
-    firestore.setListener(listenerSettings)
+    firestore.setListener(listenerSettings);
 
     return function cleanup() {
-      firestore.unsetListener(listenerSettings)
-    }
-  }, [])
+      firestore.unsetListener(listenerSettings);
+    };
+  }, []);
 
   return (
     <div>
@@ -39,15 +40,21 @@ function HomePage() {
       </div>
       <Container className="mt-3 ">
         <Row className="justify-content-md-center  my-5">
+          {/* <Loading
+            type="balls"
+            color="#ffffff"
+            height={"20%"}
+            width={"20%"}
+          ></Loading> */}
           <Col xs lg="4" className="catagory-items">
             1 of 3
-              </Col>
+          </Col>
           <Col auto="true" className="catagory-items">
             Variable width content
-              </Col>
+          </Col>
           <Col xs lg="4" className="catagory-items">
             3 of 3
-              </Col>
+          </Col>
         </Row>
 
         <Row className="justify-content-center my-5">
@@ -78,7 +85,7 @@ function HomePage() {
         </Row>
       </Container>
     </div>
-  )
+  );
 }
 
 export default HomePage;

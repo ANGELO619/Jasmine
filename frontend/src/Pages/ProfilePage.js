@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/Profile.css";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
+import { useFirebase } from "react-redux-firebase";
+import { useSelector } from "react-redux";
 
-export default function ProfilePage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+export default function ProfilePage(props) {
+  const currentUser = useSelector((state) => state.auth.user);
+  const firebase = useFirebase();
+
+  const [name, setName] = useState(currentUser?.displayName || "");
+  const [email, setEmail] = useState(currentUser?.email || "");
   const [address, setAddress] = useState("");
   const [subDistrict, setSubDistrict] = useState("");
   const [district, setDistrict] = useState("");
   const [province, setProvince] = useState("");
   const [zipCode, setZipCode] = useState("");
+
+  const updateProfile = async (event) => {
+    event.preventDefault();
+    await Promise.all([
+      firebase.auth().currentUser.updateEmail(email),
+      firebase.auth().currentUser.updateProfile({
+        displayName: name,
+      }),
+    ]);
+    alert("Profile Updated!");
+  };
 
   return (
     <div>
@@ -17,12 +33,12 @@ export default function ProfilePage() {
         <label>Profile</label>
       </div>
       <div className="wrapper">
-        <Form>
+        <Form onSubmit={updateProfile}>
           <div>
             <Container className="img-container">
               <Row>
                 <Col className="text-center" xs={12} md={12}>
-                  <img alt='' src="/images/Avatar.jpg" className="Avatar-img" />
+                  <img alt="" src="/images/Avatar.jpg" className="Avatar-img" />
                 </Col>
               </Row>
             </Container>
@@ -94,7 +110,7 @@ export default function ProfilePage() {
               </Form.Group>
             </Form.Row>
             <Button className="btn" variant="primary" type="submit">
-              Edit Profile
+              Update Profile
             </Button>
           </div>
         </Form>
