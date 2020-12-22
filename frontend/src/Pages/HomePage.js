@@ -115,21 +115,21 @@ function HomePage() {
             <Transition in={inProp} timeout={duration}>
               {(state) => (
                 <Col
-                  md={4}
+                  md={6}
                   lg={4}
-                  xl={3}
+                  xl={4}
                   sm={6}
                   xs={12}
-                  className="mx-2"
+                  className="mx-0"
                   key={product.id}
                   style={{
                     ...transitionStyles[state],
                   }}
-                  className={`fade fade-${state} mx-3`}
+                  className={`fade fade-${state} mx-0`}
                 >
                   <div className="d-flex justify-content-center my-2  ">
                     <Card
-                      className=" hover-zoom card-margin"
+                      className=" hover-zoom  card-margin"
                       onClick={() => handleShow(product)}
                     >
                       <Card.Body className="text-center">
