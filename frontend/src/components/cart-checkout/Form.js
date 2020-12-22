@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Card, Row, Button, Container, Modal } from "react-bootstrap";
+import { Col, Card, Row, Button, Modal } from "react-bootstrap";
 import QRCode from "qrcode.react";
 
 export default function AddressForm(props) {

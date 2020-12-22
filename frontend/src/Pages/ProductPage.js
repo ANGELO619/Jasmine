@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-import { detailsProduct } from "../actions/productActions";
 import { AUTH_SHOW_LOGIN_DIALOG } from "../constants/authConstants"
-
+import { useFirestore } from 'react-redux-firebase'
 import "../css/Product.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Button, Dropdown } from "react-bootstrap";
+import firebase from 'firebase'
 
 function ProductPage(props) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product = {} } = productDetails;
+  const [product, setProduct] = useState({})
+
+  const firestore = useFirestore()
 
   useEffect(() => {
-    dispatch(detailsProduct(productId));
-  }, [dispatch, productId]);
+    firestore.collection('products').doc(productId).get().then(doc => {
+      setProduct(doc.data())
+    })
+  }, [])
 
-  const addToCartHandler = () => {
+
+  const addToCartHandler = async () => {
     if (!auth.isLogin) {
       dispatch({
         type: AUTH_SHOW_LOGIN_DIALOG,
@@ -29,80 +31,79 @@ function ProductPage(props) {
       return
     }
 
-    props.history.push(`/cart/${productId}?qty=${qty}`);
+    await firestore.collection('carts').doc('test_cart').set({
+      items: firebase.firestore.FieldValue.arrayUnion({
+        product,
+        qty
+      })
+    }, { merge: true })
 
+    props.history.push(`/cart/${productId}?qty=${qty}`);
   };
 
   const auth = useSelector((state) => state.auth);
 
   return (
-    <div>
-      {loading ? (
-        <LoadingBox></LoadingBox>
-      ) : error ? (
-        <MessageBox variant="danger">${error}</MessageBox>
-      ) : (
-            <Container>
-              <Row>
-                <Col md={6}>
-                  <div className="details-img text-right">
-                    <img src={product.image} alt="product"></img>
-                  </div>
-                </Col>
-                <Col md={6} className="my-5">
-                  <div className="details-info">
-                    <ul>
-                      <li>
-                        <h4>{product.name}</h4>
-                      </li>
-                      <li>
-                        <b>Brand: {product.brand}</b>
-                      </li>
-                      <li>
-                        <b>
-                          Price:{" "}
-                          <span className="price-color">€ {product.price}</span>
-                        </b>
-                      </li>
-                      <li>
-                        <b>Description:</b>
-                        <div>{product.description}</div>
-                      </li>
-                      <li>
-                        <b>Status: </b>
-                        {product.countInStock > 0 ? (
-                          <span className="success">In Stock</span>
-                        ) : (
-                            <span className="danger">Unavailable</span>
-                          )}
-                      </li>
-                      <li>
-                        <b>Qty: </b>
-                        <Dropdown>
-                          <Dropdown.Toggle id="dropdown-basic">{qty}</Dropdown.Toggle>
+    <Container>
+      <Row>
+        <Col md={6}>
+          <div className="d-flex flex-row align-items-center justify-content-center product-image-container">
+            <img className="product-image" src={product.image} alt="product"></img>
+          </div>
+        </Col>
+        <Col md={6} className="d-flex flex-row align-items-center justify-content-center">
+          <div className="details-info">
+            <ul>
+              <li>
+                <h4>{product.name}</h4>
+              </li>
+              <li>
+                <b>Brand: {product.brand}</b>
+              </li>
+              <li>
+                <b>
+                  Price:{" "}
+                  <span className="price-color">€ {product.price}</span>
+                </b>
+              </li>
+              <li>
+                <b>
+                  Price:{" "}
+                  <span >€ {product.description}</span>
+                </b>
+              </li>
+              <li>
+                <b>Status: </b>
+                {product.countInStock > 0 ? (
+                  <span className="success">In Stock</span>
+                ) : (
+                    <span className="danger">Unavailable</span>
+                  )}
+              </li>
+              <li>
+                <Dropdown>
+                  <Dropdown.Toggle id="dropdown-basic">{qty}</Dropdown.Toggle>
 
-                          <Dropdown.Menu>
-                            {[...Array(product.countInStock).keys()].map((x) => (
-                              <Dropdown.Item key={x} eventKey={x + 1} onSelect={
-                                (value) => setQty(value)
-                              }>
-                                {x + 1}
-                              </Dropdown.Item>
-                            ))}
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </li>
-                    </ul>
-                    <Button className="mx-3" onClick={addToCartHandler}>
-                      Add to Cart
-                </Button>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          )}
-    </div>
-  );
+                  <Dropdown.Menu>
+                    {[...Array(product.countInStock).keys()].map((x) => (
+                      <Dropdown.Item key={x} eventKey={x + 1} onSelect={
+                        (value) => setQty(value)
+                      }>
+                        {x + 1}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </li>
+              <li>
+                <Button onClick={addToCartHandler}>Add to Cart</Button>
+              </li>
+            </ul>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default ProductPage;

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from "react";
 import "./App.css";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
@@ -17,19 +16,6 @@ import {
   AUTH_LOGOUT,
   AUTH_SHOW_LOGIN_DIALOG,
 } from "./constants/authConstants";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDsR3cCWvvEUfCtTVaGMxb-of71S30OfYw",
-  authDomain: "jasmine-ecommerce.firebaseapp.com",
-  projectId: "jasmine-ecommerce",
-  storageBucket: "jasmine-ecommerce.appspot.com",
-  messagingSenderId: "496594169433",
-  appId: "1:496594169433:web:d6eef11e8d368144f8cb48",
-};
-
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
-}
 
 function App() {
   const dispatch = useDispatch();
@@ -118,4 +104,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
