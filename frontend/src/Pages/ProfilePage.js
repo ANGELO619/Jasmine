@@ -22,7 +22,7 @@ export default function ProfilePage() {
             <Container className="img-container">
               <Row>
                 <Col className="text-center" xs={12} md={12}>
-                  <img alt='' src="/images/Avatar.jpg" className="Avatar-img" />
+                  <img alt="" src="/images/Avatar.jpg" className="Avatar-img" />
                 </Col>
               </Row>
             </Container>
