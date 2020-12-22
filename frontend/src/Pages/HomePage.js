@@ -4,10 +4,19 @@ import { Row, Col, Container, Card } from "react-bootstrap";
 import "../css/Home.css";
 import { useFirestore } from "react-redux-firebase";
 import Loading from "../components/Loading";
+import ProductModal from "../components/ProductMoodal";
 
 function HomePage() {
   const firestore = useFirestore();
   const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({});
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
 
   useEffect(() => {
     firestore
@@ -79,6 +88,11 @@ function HomePage() {
             </Col>
           ))}
         </Row>
+        <ProductModal
+          show={showModal}
+          hide={handleClose}
+          product={selectedProduct}
+        ></ProductModal>
       </Container>
     </div>
   );

@@ -10,7 +10,6 @@ import {
   Route,
 } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
-import ProductPage from "./Pages/ProductPage";
 import ProfilePage from "./Pages/ProfilePage";
 import CartPage from "./Pages/CartPage";
 import { Nav, Navbar } from "react-bootstrap";
@@ -106,7 +105,7 @@ function App(props) {
 
         <main>
           <Route path="/cart/:id?" component={CartPage} />
-          <Route path="/product/:id" component={ProductPage} />
+
           <Route path="/" exact={true} component={HomePage} />
           <Route path="/profile" component={ProfilePage} />
         </main>
