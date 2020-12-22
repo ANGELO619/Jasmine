@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Card, Button, Dropdown } from "react-bootstrap";
 import "../../css/Cart.css";
+import NumberInput from "../NumberInput";
 
 export default function ShoppingCart(props) {
   return (
@@ -32,30 +33,16 @@ export default function ShoppingCart(props) {
               >
                 Delete{" "}
               </Button>
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  {item.qty}
-                </Dropdown.Toggle>
+              <NumberInput
+                value={item.qty}
+                onChange={(qty) =>
+                  props.onUpdateCart({
+                    product: item.product,
+                    qty: Number(qty),
+                  })
+                }
+              ></NumberInput>
 
-                <Dropdown.Menu>
-                  {[...Array(Number(item.product.countInStock)).keys()].map(
-                    (x) => (
-                      <Dropdown.Item
-                        key={x}
-                        eventKey={x + 1}
-                        onSelect={(eventKey, event) =>
-                          props.onUpdateCart({
-                            product: item.product,
-                            qty: Number(eventKey),
-                          })
-                        }
-                      >
-                        {x + 1}
-                      </Dropdown.Item>
-                    )
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
               <div></div>
               <div className="h5 text-left"> {item.product.name}</div>
             </Col>

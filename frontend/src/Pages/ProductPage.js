@@ -1,53 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AUTH_SHOW_LOGIN_DIALOG } from "../constants/authConstants"
-import { useFirestore } from 'react-redux-firebase'
+import { AUTH_SHOW_LOGIN_DIALOG } from "../constants/authConstants";
+import { useFirestore } from "react-redux-firebase";
 import "../css/Product.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Button, Dropdown } from "react-bootstrap";
-import firebase from 'firebase'
+import firebase from "firebase";
+import NumberInput from "../components/NumberInput";
 
 function ProductPage(props) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const [product, setProduct] = useState({
-    id: '',
-    name: '',
-    description: '',
+    id: "",
+    name: "",
+    description: "",
     price: 0,
-    options: '',
+    options: "",
     countInStock: 0,
-    category: '',
-    image: ''
-  })
+    category: "",
+    image: "",
+  });
 
-  const firestore = useFirestore()
+  const firestore = useFirestore();
 
   useEffect(() => {
-    firestore.collection('products').doc(productId).get().then(doc => {
-      setProduct(doc.data())
-    })
-  }, [])
-
+    firestore
+      .collection("products")
+      .doc(productId)
+      .get()
+      .then((doc) => {
+        setProduct(doc.data());
+      });
+  }, []);
 
   const addToCartHandler = async () => {
     if (!auth.isLogin) {
       dispatch({
         type: AUTH_SHOW_LOGIN_DIALOG,
-        payload: true
-      })
-      return
+        payload: true,
+      });
+      return;
     }
 
-    await firestore.collection('carts').doc('test_cart').set({
-      items: firebase.firestore.FieldValue.arrayUnion({
-        product,
-        qty
-      })
-    }, { merge: true })
+    await firestore
+      .collection("carts")
+      .doc("test_cart")
+      .set(
+        {
+          items: firebase.firestore.FieldValue.arrayUnion({
+            product,
+            qty,
+          }),
+        },
+        { merge: true }
+      );
 
-    props.history.push(`/cart/${productId}?qty=${qty}`);
+    props.history.push(`/cart`);
   };
 
   const auth = useSelector((state) => state.auth);
@@ -57,10 +67,17 @@ function ProductPage(props) {
       <Row>
         <Col md={6}>
           <div className="d-flex flex-row align-items-center justify-content-center product-image-container">
-            <img className="product-image" src={product.image} alt="product"></img>
+            <img
+              className="product-image"
+              src={product.image}
+              alt="product"
+            ></img>
           </div>
         </Col>
-        <Col md={6} className="d-flex flex-row align-items-center justify-content-center">
+        <Col
+          md={6}
+          className="d-flex flex-row align-items-center justify-content-center"
+        >
           <div className="details-info">
             <ul>
               <li>
@@ -71,14 +88,12 @@ function ProductPage(props) {
               </li>
               <li>
                 <b>
-                  Price:{" "}
-                  <span className="price-color">€ {product.price}</span>
+                  Price: <span className="price-color">€ {product.price}</span>
                 </b>
               </li>
               <li>
                 <b>
-                  Price:{" "}
-                  <span >€ {product.description}</span>
+                  Price: <span>€ {product.description}</span>
                 </b>
               </li>
               <li>
@@ -86,23 +101,11 @@ function ProductPage(props) {
                 {product.countInStock > 0 ? (
                   <span className="success">In Stock</span>
                 ) : (
-                    <span className="danger">Unavailable</span>
-                  )}
+                  <span className="danger">Unavailable</span>
+                )}
               </li>
-              <li>
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic">{qty}</Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    {[...Array(Number(product.countInStock)).keys()].map((x) => (
-                      <Dropdown.Item key={x} eventKey={x + 1} onSelect={
-                        (value) => setQty(value)
-                      }>
-                        {x + 1}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
+              <li className="my-2">
+                <NumberInput value={qty} onChange={setQty}></NumberInput>
               </li>
               <li>
                 <Button onClick={addToCartHandler}>Add to Cart</Button>
@@ -112,7 +115,7 @@ function ProductPage(props) {
         </Col>
       </Row>
     </Container>
-  )
+  );
 }
 
 export default ProductPage;
