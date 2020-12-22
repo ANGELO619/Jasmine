@@ -50,28 +50,35 @@
 
 @media only screen and (max-width: 2561px) {
   .card-image-size{
-    width: 13rem;
-    height: 13rem;
+    width: 15rem;
+    height: 15rem;
   }
 }
 
 @media only screen and (max-width: 2305px) {
   .card-image-size{
-    width: 19rem;
-    height: 19rem;
+    width: 15rem;
+    height: 15rem;
+  }
+}
+
+@media only screen and (max-width: 1921px) {
+  .card-image-size{
+    width: 13rem;
+    height: 13rem;
   }
 }
 
 @media only screen and (max-width: 1440px) {
   .card-image-size{
-    width: 23rem;
-    height: 23rem;
+    width: 14rem;
+    height: 14rem;
   }
 }
 @media only screen and (max-width: 1025px) {
   .card-image-size{
-    width: 18rem;
-    height: 18rem;
+    width: 15rem;
+    height: 15rem;
   }
 }
 
