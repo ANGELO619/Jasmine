@@ -21,12 +21,11 @@ export default function CartPage(props) {
   let { items } = cart;
 
   useEffect(() => {
-    firestore
+    const unsubscribe = firestore
       .collection("carts")
       .doc(cartId)
-      .get()
-      .then((doc) => {
-        const cartData = doc.data();
+      .onSnapshot((snapshot) => {
+        const cartData = snapshot.data();
 
         if (!cartData) {
           return props.history.push("/");
@@ -35,8 +34,10 @@ export default function CartPage(props) {
         if (cartData.items.length === 0) {
           return props.history.push("/");
         }
-        setCart(doc.data());
+        setCart(snapshot.data());
       });
+
+    return () => unsubscribe()
   }, []);
 
   const onUpdateCart = async (payload) => {
