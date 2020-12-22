@@ -3,7 +3,14 @@ import { Button } from "react-bootstrap";
 import "../css/NumberInput.css";
 
 export default function NumberInput(props) {
-  const [input, setInput] = useState(props.value);
+  const [input, setInput] = useState(Number(props.value));
+  const [max, setMax] = useState(Number(props.maxValue));
+
+  useEffect(() => {
+    if (input >= max) {
+      setInput(max);
+    }
+  });
 
   const increase = () => {
     const value = input + 1;

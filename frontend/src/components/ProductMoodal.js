@@ -64,7 +64,11 @@ export default function ProductModal(props) {
           </Card.Subtitle>
           <Card.Body>
             <Card.Text className="text-center">
-              <NumberInput value={qty} onChange={setQty}></NumberInput>
+              <NumberInput
+                value={qty}
+                onChange={setQty}
+                maxValue={product.countInStock}
+              ></NumberInput>
             </Card.Text>
           </Card.Body>
         </Card>
