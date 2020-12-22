@@ -102,6 +102,7 @@ function HomePage() {
                 backgroundColor: filter == category ? "#69dc9e" : "#FFF",
                 filter: `drop-shadow(3px 5px 0.3rem #dbd9d7)`,
                 height: "3rem",
+                cursor: "pointer",
                 // border: '0.1rem solid #dbd9d7'
               }}
             >
@@ -143,7 +144,7 @@ function HomePage() {
 
                         <Card.Subtitle className="my-3">
                           {product.brand}
-                          {product.price}$
+                          {product.price} €
                         </Card.Subtitle>
 
                         <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>

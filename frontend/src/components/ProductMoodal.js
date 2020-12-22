@@ -61,7 +61,7 @@ export default function ProductModal(props) {
           </Card.Subtitle>
           <Card.Subtitle className="text-left my-3 mx-3">
             price : {product.price}
-            {"$ "}
+            {" €"}
           </Card.Subtitle>
           <Card.Body>
             <Card.Text className="text-center">
