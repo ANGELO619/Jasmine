@@ -4,10 +4,19 @@ import { Row, Col, Container, Card } from "react-bootstrap";
 import "../css/Home.css";
 import { useFirestore } from "react-redux-firebase";
 import Loading from "../components/Loading";
+import ProductModal from "../components/ProductMoodal";
 
 function HomePage() {
   const firestore = useFirestore();
   const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState({});
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
 
   const listenerSettings = {
     collection: "products",
@@ -68,13 +77,17 @@ function HomePage() {
               className="mx-3"
               key={product.id}
             >
-              <Card style={{ width: "18rem" }} className="hover-zoom">
+              <Card
+                style={{ width: "18rem" }}
+                className="hover-zoom"
+                onClick={() => handleShow(product)}
+              >
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Subtitle className="mb-2 text-muted">
-                    <Link to={`/product/${product.id}`}>
-                      <Card.Img variant="top" src={product.image} />
-                    </Link>
+                    {/* <Link to={`/product/${product.id}`}> */}
+                    <Card.Img variant="top" src={product.image} />
+                    {/* </Link> */}
                     {product.brand} € {product.price}
                   </Card.Subtitle>
                   <Card.Text>{product.description}</Card.Text>
@@ -83,6 +96,11 @@ function HomePage() {
             </Col>
           ))}
         </Row>
+        <ProductModal
+          show={showModal}
+          hide={handleClose}
+          product={selectedProduct}
+        ></ProductModal>
       </Container>
     </div>
   );
