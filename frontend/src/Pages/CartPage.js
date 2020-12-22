@@ -16,7 +16,7 @@ export default function CartPage(props) {
     : 1;
   const cart = useSelector((state) => state.cart);
 
-  const { cartItems } = cart;
+  const { items } = cart;
 
   const dispatch = useDispatch();
 
@@ -34,17 +34,17 @@ export default function CartPage(props) {
     <Container fluid className="text-center">
       <Row fluid className="my-3">
         <Col md={8} lg={8} xl={8} sm={8} xs={12}>
-          {cartItems.length === 0 ? (
+          {items.length === 0 ? (
             <MessageBox>
               Cart is empty. <Link to="/">Go Shopping</Link>
             </MessageBox>
           ) : (
-            <Row fluid className="ml-0">
-              <Col>
-                <ShoppingCart cartItems={cartItems}></ShoppingCart>
-              </Col>
-            </Row>
-          )}
+              <Row fluid className="ml-0">
+                <Col>
+                  <ShoppingCart items={items}></ShoppingCart>
+                </Col>
+              </Row>
+            )}
         </Col>
         <Col md={4} lg={4} xl={4} sm={4} xs={12}>
           <AddressForm></AddressForm>

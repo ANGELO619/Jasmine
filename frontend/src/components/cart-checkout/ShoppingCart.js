@@ -19,7 +19,7 @@ export default function ShoppingCart(props) {
       <Card.Body>
         <Card.Title className="text-left title ">shopping cart</Card.Title>
 
-        {props.cartItems.map((item) => (
+        {props.items.map((item) => (
           <Row key={item.product} fluid>
             <Col>
               <img src={item.image} alt={item.name} className="small"></img>
@@ -67,8 +67,8 @@ export default function ShoppingCart(props) {
       </Card.Body>
       <Card.Footer className="text-right">
         <h2>
-          Subtotal ({props.cartItems.reduce((a, c) => a + c.qty, 0)} items) : €{" "}
-          {props.cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+          Subtotal ({props.items.reduce((a, c) => a + c.qty, 0)} items) : €{" "}
+          {props.items.reduce((a, c) => a + c.price * c.qty, 0)}
         </h2>
       </Card.Footer>
     </Card>
