@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import "./index.css";
 
@@ -12,7 +12,7 @@ import {
 import HomePage from "./Pages/HomePage";
 import ProfilePage from "./Pages/ProfilePage";
 import CartPage from "./Pages/CartPage";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, Badge } from "react-bootstrap";
 import LoginDialog from "./components/LoginDialog";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,13 +20,16 @@ import {
   AUTH_LOGOUT,
   AUTH_SHOW_LOGIN_DIALOG,
 } from "./constants/authConstants";
-import { useFirebase } from "react-redux-firebase";
+import { useFirebase, useFirestore } from "react-redux-firebase";
+import { Cart } from 'react-bootstrap-icons';
 
 function App(props) {
   const firebase = useFirebase();
+  const firestore = useFirestore()
   const dispatch = useDispatch();
 
   const auth = useSelector((state) => state.auth);
+
 
   const setShowLogin = useCallback(
     (show) => {
@@ -54,6 +57,23 @@ function App(props) {
     [dispatch]
   );
 
+  const [cart, setCart] = useState({
+    id: null,
+    items: [],
+    belongTo: null,
+  });
+
+  useEffect(() => {
+    const unsubscribe = firestore
+      .collection("carts")
+      .doc('test_cart')
+      .onSnapshot(snapshot => {
+        console.log(snapshot);
+        setCart(snapshot.data());
+      })
+    return () => unsubscribe()
+  }, []);
+
   useEffect(() => {
     const unregisterAuthObserver = firebase
       .auth()
@@ -79,6 +99,11 @@ function App(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Nav>
+              <Nav.Link href="/cart">
+                <Cart size={24} >
+
+                </Cart><Badge variant="danger">{cart.items.length}</Badge>
+              </Nav.Link>
               {auth.isLogin ? (
                 <Nav.Link href="/profile">Profile</Nav.Link>
               ) : null}
