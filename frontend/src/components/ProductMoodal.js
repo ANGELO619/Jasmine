@@ -79,7 +79,7 @@ export default function ProductModal(props) {
           Close
         </Button>
         <Button variant="primary" onClick={() => addToCartHandler()}>
-          Add to art
+          Add to cart
         </Button>
       </Modal.Footer>
     </Modal>
