@@ -83,8 +83,8 @@ function ProductPage(props) {
 
                           <Dropdown.Menu>
                             {[...Array(product.countInStock).keys()].map((x) => (
-                              <Dropdown.Item eventKey={x + 1} onSelect={
-                                (value, event) => setQty(value)
+                              <Dropdown.Item key={x} eventKey={x + 1} onSelect={
+                                (value) => setQty(value)
                               }>
                                 {x + 1}
                               </Dropdown.Item>
