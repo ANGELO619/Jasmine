@@ -5,17 +5,17 @@ import "../css/Home.css";
 import { useFirestore } from "react-redux-firebase";
 import Loading from "../components/Loading";
 import ProductModal from "../components/ProductMoodal";
-import { Transition } from 'react-transition-group';
+import { Transition } from "react-transition-group";
 
 function HomePage() {
   const firestore = useFirestore();
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState({});
-  const [categories, setCategories] = useState([])
-  const [filter, setFilter] = useState('')
+  const [categories, setCategories] = useState([]);
+  const [filter, setFilter] = useState("");
   const [inProp, setInProp] = useState(false);
-  let [productsCache, setProductCache] = useState([])
+  let [productsCache, setProductCache] = useState([]);
 
   const duration = 300;
 
@@ -26,49 +26,50 @@ function HomePage() {
   };
 
   const handleCategoryClick = (selectedCategory) => {
-    setInProp(false)
+    setInProp(false);
     if (filter === selectedCategory) {
-      setFilter('')
+      setFilter("");
       setProducts(productsCache);
       setTimeout(() => {
-        setInProp(true)
+        setInProp(true);
       }, duration);
-      return
+      return;
     }
-    setFilter(selectedCategory)
+    setFilter(selectedCategory);
 
-    const filteredProduct = productsCache.filter(product => product.category == selectedCategory)
+    const filteredProduct = productsCache.filter(
+      (product) => product.category == selectedCategory
+    );
 
-    setProducts(filteredProduct)
+    setProducts(filteredProduct);
     setTimeout(() => {
-      setInProp(true)
+      setInProp(true);
     }, duration);
-  }
+  };
 
   useEffect(() => {
     firestore
       .collection("products")
       .get()
       .then((doc) => {
-        const productsDocs = doc.docs.map((doc) => doc.data())
+        const productsDocs = doc.docs.map((doc) => doc.data());
         setProducts(productsDocs);
-        setProductCache(productsDocs)
+        setProductCache(productsDocs);
         setTimeout(() => {
-          setInProp(true)
+          setInProp(true);
         }, duration);
-      })
+      });
   }, []);
 
   useEffect(() => {
     firestore
       .collection("views")
-      .doc('product-categories')
+      .doc("product-categories")
       .get()
       .then((doc) => {
-        setCategories(doc.data().categories)
+        setCategories(doc.data().categories);
       });
   }, []);
-
 
   const transitionStyles = {
     entering: { opacity: 1 },
@@ -76,7 +77,6 @@ function HomePage() {
     exiting: { opacity: 0 },
     exited: { opacity: 0 },
   };
-
 
   return (
     <div>
@@ -90,16 +90,22 @@ function HomePage() {
         <Row className="justify-content-md-center">
           {categories.map((category) => (
             <Col
-              xs={12} sm={12} md={2} lg={6} lg={2}
+              xs={12}
+              sm={12}
+              md={2}
+              lg={6}
+              lg={2}
               className="catagory-items mx-lg-2 my-1 d-flex justify-content-center align-items-center"
-              key={category} onClick={() => handleCategoryClick(category)}
+              key={category}
+              onClick={() => handleCategoryClick(category)}
               style={{
-                backgroundColor: filter == category ? '#69dc9e' : '#FFF',
+                backgroundColor: filter == category ? "#69dc9e" : "#FFF",
                 filter: `drop-shadow(3px 5px 0.3rem #dbd9d7)`,
-                height: '3rem',
+                height: "3rem",
                 // border: '0.1rem solid #dbd9d7'
-              }}>
-              { category}
+              }}
+            >
+              {category}
             </Col>
           ))}
         </Row>
@@ -107,7 +113,7 @@ function HomePage() {
         <Row className="justify-content-center my-5">
           {products.map((product) => (
             <Transition in={inProp} timeout={duration}>
-              {state => (
+              {(state) => (
                 <Col
                   md={4}
                   lg={4}
@@ -117,22 +123,24 @@ function HomePage() {
                   className="mx-3"
                   key={product.id}
                   style={{
-                    ...transitionStyles[state]
+                    ...transitionStyles[state],
                   }}
                   className={`fade fade-${state} mx-3`}
                 >
                   <div className=" d-flex justify-content-center my-2  ">
-                    <Card style={{ width: "18rem" }} className=" hover-zoom mr-b ">
+                    <Card
+                      style={{ width: "18rem" }}
+                      className=" hover-zoom mr-b "
+                      onClick={() => handleShow(product)}
+                    >
                       <Card.Body className="cb">
                         <Card.Title>{product.name}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
-                          <Link to={`/product/${product.id}`}>
-                            <Card.Img
-                              className="card-image-size"
-                              variant="top"
-                              src={product.image}
-                            />
-                          </Link>
+                          <Card.Img
+                            className="card-image-size"
+                            variant="top"
+                            src={product.image}
+                          />
                           {product.brand} € {product.price}
                         </Card.Subtitle>
                         <Card.Text className="truncate">
@@ -152,7 +160,7 @@ function HomePage() {
           product={selectedProduct}
         ></ProductModal>
       </Container>
-    </div >
+    </div>
   );
 }
 

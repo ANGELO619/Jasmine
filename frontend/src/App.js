@@ -71,14 +71,17 @@ function App(props) {
   return (
     <Router>
       <div>
-        <Navbar className="bg-main" expand="lg">
+        <Navbar className="bg-main" expand="md">
           <Link to="/">
             <Navbar.Brand href="#home">JASMINE</Navbar.Brand>
           </Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav ">
-            <Nav className="mr-auto ">
+          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+            <Nav>
+              {auth.isLogin ? (
+                <Nav.Link href="/profile">Profile</Nav.Link>
+              ) : null}
               {auth.isLogin ? (
                 <Nav.Link
                   title="Logout"
@@ -87,13 +90,10 @@ function App(props) {
                   Logout
                 </Nav.Link>
               ) : (
-                <Nav.Link title="Login" onClick={() => setShowLogin(true)}>
-                  Login
-                </Nav.Link>
-              )}
-              {auth.isLogin ? (
-                <Nav.Link href="/profile">Profile</Nav.Link>
-              ) : null}
+                  <Nav.Link title="Login" onClick={() => setShowLogin(true)}>
+                    Login
+                  </Nav.Link>
+                )}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
