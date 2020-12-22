@@ -38,7 +38,8 @@ export default function ProductModal(props) {
         },
         { merge: true }
       );
-    history.push(`/cart`);
+    props.hide();
+    // history.push(`/cart`);
   };
 
   return (
@@ -77,7 +78,7 @@ export default function ProductModal(props) {
         <Button variant="secondary" onClick={props.hide}>
           Close
         </Button>
-        <Button variant="primary" onClick={props.hide}>
+        <Button variant="primary" onClick={() => addToCartHandler()}>
           Add to art
         </Button>
       </Modal.Footer>
