@@ -28,7 +28,7 @@ export default function NumberInput(props) {
 
   return (
     <div className="">
-      <div className="d-flex align-items-center justify-content-start">
+      <div className="d-flex align-items-center justify-content-center">
         <div className="mx-2 ">
           <Button
             className="rounded-circle "
@@ -41,7 +41,7 @@ export default function NumberInput(props) {
         <div className="input ">
           <input
             type="number"
-            className="input-height text-center"
+            className="input-height input-width text-center"
             min={0}
             value={input}
             onChange={onChange}

@@ -43,8 +43,12 @@ export default function ProductModal(props) {
   };
 
   return (
-    <Modal show={props.show} onHide={props.handleClose} animation={true}>
-      <Modal.Header closeButton onClick={props.hide}></Modal.Header>
+    <Modal
+      show={props.show}
+      onHide={props.handleClose}
+      animation={true}
+      className="modal-margin"
+    >
       <Modal.Body>
         <Card className=" flex text-center justify-content-center">
           <Card.Title className="mt-5">{product.name}</Card.Title>
