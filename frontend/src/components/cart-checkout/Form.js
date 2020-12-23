@@ -72,7 +72,7 @@ export default function PlaceOrderForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
+              <Col md={12} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>sub-district</p>
@@ -86,7 +86,7 @@ export default function PlaceOrderForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
+              <Col md={12} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>distric</p>
@@ -100,7 +100,7 @@ export default function PlaceOrderForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
+              <Col md={12} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>province</p>
@@ -114,7 +114,7 @@ export default function PlaceOrderForm(props) {
                   </div>
                 </div>
               </Col>
-              <Col md={6} lg={6} xl={6} sm={12} xs={12}>
+              <Col md={12} lg={6} xl={6} sm={12} xs={12}>
                 <div className="text-left mt-4">
                   <div className="title">
                     <p>post code</p>
