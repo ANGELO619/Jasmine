@@ -10,8 +10,11 @@ export default function ShoppingCart(props) {
         <Card.Title className="text-left title">shopping cart</Card.Title>
 
         {props.items.map((item) => (
-          <Row key={item.product.id}>
-            <Col md={4} lg={4} xl={4} sm={4} xs={4}>
+          <Row
+            key={item.product.id}
+            className="justify-content-center text-center"
+          >
+            <Col md={12} lg={4} xl={4} sm={12} xs={12}>
               <img
                 src={item.product.image}
                 alt={item.product.name}
@@ -20,12 +23,12 @@ export default function ShoppingCart(props) {
             </Col>
 
             <Col
-              md={8}
+              md={12}
               lg={8}
               xl={8}
-              sm={8}
-              xs={8}
-              className="d-flex flex-row-reverse align-items-center justify-content-around"
+              sm={12}
+              xs={12}
+              className="d-flex flex-row-reverse align-items-center justify-content-evenly"
             >
               <Button
                 variant="danger"
@@ -50,7 +53,7 @@ export default function ShoppingCart(props) {
         ))}
       </Card.Body>
       <Card.Footer className="text-right">
-        <h2>
+        <h4>
           Subtotal (
           {props.items.reduce((totalQty, item) => totalQty + item.qty, 0)}{" "}
           items) : €{" "}
@@ -58,7 +61,7 @@ export default function ShoppingCart(props) {
             (totalPrice, item) => totalPrice + item.product.price * item.qty,
             0
           )}
-        </h2>
+        </h4>
       </Card.Footer>
     </Card>
   );

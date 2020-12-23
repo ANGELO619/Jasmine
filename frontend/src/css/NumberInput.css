@@ -2,11 +2,5 @@
   height: 40px;
 }
 .input-width {
-  width: 20rem;
-}
-
-@media only screen and (max-width: 550px) {
-  .input-width {
-    width: 10rem;
-  }
+  width: 3rem;
 }
